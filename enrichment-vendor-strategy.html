@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Enrichment Vendor Strategy - BetterUp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 12px;
+            padding: 60px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .title-slide h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .title-slide .subtitle {
+            font-size: 28px;
+            opacity: 0.95;
+            margin-bottom: 40px;
+        }
+
+        .title-slide .meta {
+            font-size: 18px;
+            opacity: 0.85;
+        }
+
+        h2 {
+            color: #0066cc;
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 24px;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .summary-box {
+            background: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .problem-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 42px;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .vendor-card {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .vendor-card.redundant {
+            border-color: #ff9800;
+            background: #fff8f0;
+        }
+
+        .vendor-card.existing {
+            border-color: #4caf50;
+            background: #f1f8f4;
+        }
+
+        .vendor-card h4 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .vendor-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .vendor-card ul li {
+            padding: 5px 0;
+            color: #666;
+        }
+
+        .vendor-card ul li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .vendor-card.redundant ul li:before {
+            content: "⚠ ";
+            color: #ff9800;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .option-card h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+
+        .option-card .benefits {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        .comparison-table th {
+            background: #0066cc;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .check {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .cross {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .timeline {
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .timeline-marker {
+            width: 50px;
+            height: 50px;
+            background: #0066cc;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            color: #666;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin: 8px 0;
+            color: #444;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        .badge-new {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-existing {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .badge-eliminate {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .key-point {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .key-point h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .slide {
+                box-shadow: none;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            .stat-grid, .vendor-grid, .key-points {
+                grid-template-columns: 1fr;
+            }
+            h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide">
+            <h1>Account Enrichment Strategy</h1>
+            <div class="subtitle">Vendor Consolidation & Optimization Initiative</div>
+            <div class="meta">
+                BetterUp Sales Operations<br>
+                Q4 2025
+            </div>
+        </div>
+
+        <!-- Slide 2: Executive Summary -->
+        <div class="slide">
+            <h2>Executive Summary</h2>
+            
+            <div class="problem-box">
+                <h3>Current Situation</h3>
+                <p><strong>LeadIQ and Dun & Bradstreet contracts not renewed</strong> — we need an enrichment strategy that:</p>
+                <ul>
+                    <li>Maximizes existing vendor investments (Clearbit, 6sense)</li>
+                    <li>Addresses immediate RevOps territory planning needs</li>
+                    <li>Reduces costs while improving data quality</li>
+                    <li>Provides long-term automated CRM enrichment</li>
+                </ul>
+            </div>
+            
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="number">2</div>
+                    <div class="label">Remaining Vendors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">3</div>
+                    <div class="label">Strategic Options</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">⚡</div>
+                    <div class="label">Urgent Decision</div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h3>Key Decision: Urgency vs. Long-term Solution</h3>
+                <p><strong>RevOps Territory Planning:</strong> Do we need quick data refresh now, or can we prioritize building automated enrichment for ongoing updates?</p>
+            </div>
+
+            <h3>This Presentation</h3>
+            <p>Evaluates three strategic options to help guide decision-making based on urgency, budget constraints, and long-term automation goals.</p>
+        </div>
+
+        <!-- Slide 3: Current State Analysis -->
+        <div class="slide">
+            <h2>Current State & Cost Pressure</h2>
+            
+            <div class="problem-box">
+                <h3>⚠️ Immediate Context</h3>
+                <ul style="font-size: 18px;">
+                    <li><strong>LeadIQ and Dun & Bradstreet contracts not renewed</strong></li>
+                    <li><strong>Cost pressure:</strong> Mandate to consolidate systems and reduce vendor spend</li>
+                    <li><strong>RevOps territory planning underway:</strong> Need updated firmographic data</li>
+                    <li><strong>Urgency question:</strong> Quick data refresh now vs. automated long-term solution?</li>
+                </ul>
+            </div>
+
+            <h3>Current Vendor Landscape</h3>
+            
+            <div class="vendor-grid">
+                <div class="vendor-card existing">
+                    <h4>✓ Clearbit <span class="badge badge-existing">ACTIVE</span></h4>
+                    <ul>
+                        <li>Currently: HubSpot only</li>
+                        <li>Real-time enrichment</li>
+                        <li><strong>Opportunity:</strong> Extend to Salesforce</li>
+                        <li><strong>Already paid for</strong></li>
+                    </ul>
+                </div>
+
+                <div class="vendor-card existing">
+                    <h4>✓ 6sense <span class="badge badge-existing">ACTIVE</span></h4>
+                    <ul>
+                        <li>Firmographic data available</li>
+                        <li>Intent signals</li>
+                        <li><strong>Opportunity:</strong> Full utilization</li>
+                        <li><strong>Already paid for</strong></li>
+                    </ul>
+                </div>
+
+                <div class="vendor-card redundant">
+                    <h4>LeadIQ <span class="badge badge-eliminate">NOT RENEWED</span></h4>
+                    <ul>
+                        <li>Contact enrichment (gone)</li>
+                        <li>Gap in coverage</li>
+                        <li>Need replacement strategy</li>
+                    </ul>
+                </div>
+
+                <div class="vendor-card redundant">
+                    <h4>Dun & Bradstreet <span class="badge badge-eliminate">NOT RENEWED</span></h4>
+                    <ul>
+                        <li>Firmographic data (gone)</li>
+                        <li>Gap in coverage</li>
+                        <li>Need replacement strategy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h3>Strategic Imperative</h3>
+                <p><strong>Maximize tools we already pay for</strong> (Clearbit + 6sense) before adding new vendors. This aligns with cost consolidation mandate while addressing immediate enrichment needs.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Three-Pronged Approach -->
+        <div class="slide">
+            <h2>Critical Decision: Urgency vs. Long-term</h2>
+            
+            <div class="problem-box">
+                <h3>🎯 RevOps Territory Planning is Underway</h3>
+                <p style="font-size: 18px;"><strong>Key Question:</strong> How urgent is updated firmographic data for territory planning vs. building automated enrichment infrastructure?</p>
+            </div>
+
+            <div class="vendor-grid" style="margin-top: 30px;">
+                <div class="vendor-card existing">
+                    <h4>Option A: Urgent Data Refresh</h4>
+                    <p><strong>If territory planning needs data NOW:</strong></p>
+                    <ul>
+                        <li>Clay.com POC for immediate enrichment</li>
+                        <li>One-time data refresh across all accounts</li>
+                        <li>Fast turnaround (2-3 weeks)</li>
+                        <li>Cost: $720 for 600K credits</li>
+                    </ul>
+                </div>
+
+                <div class="vendor-card existing">
+                    <h4>Option B: Long-term Infrastructure</h4>
+                    <p><strong>If we have time to build properly:</strong></p>
+                    <ul>
+                        <li>Extend Clearbit to Salesforce</li>
+                        <li>Build automated enrichment workflows</li>
+                        <li>Slower implementation (4-6 weeks)</li>
+                        <li>Cost: $0 new spend (existing vendors)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="summary-box" style="margin-top: 30px;">
+                <h3>Recommended: Parallel Approach</h3>
+                <p><strong>Do both simultaneously if budget allows:</strong></p>
+                <ul>
+                    <li><strong>Immediate:</strong> Clay POC for territory planning data refresh</li>
+                    <li><strong>Parallel:</strong> Extend Clearbit/6sense for ongoing automation</li>
+                    <li><strong>Result:</strong> Address urgent need while building long-term solution</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Strategic Options -->
+        <div class="slide">
+            <h2>Three Strategic Options</h2>
+            <p style="font-size: 20px; color: #666; margin-bottom: 30px;">Evaluate approaches based on urgency, cost, and long-term automation goals</p>
+
+            <div class="option-card">
+                <h3>Option 1: Maximize Existing Vendors <span class="badge badge-existing">$0 NEW COST</span></h3>
+                <p><strong>Leverage contracts we already pay for:</strong> Clearbit + 6sense</p>
+                <div class="benefits">
+                    <strong>Key Actions:</strong>
+                    <ul>
+                        <li>Extend Clearbit enrichment from HubSpot to Salesforce</li>
+                        <li>Fully leverage 6sense firmographic data for territory planning</li>
+                        <li>Build automated workflows for ongoing CRM enrichment</li>
+                    </ul>
+                    <strong>Best For:</strong> Long-term automation, cost consolidation mandate<br>
+                    <strong>Timeline:</strong> 4-6 weeks (vendor discussions + implementation)<br>
+                    <strong>Cost:</strong> $0 new spend — maximize existing investments
+                </div>
+            </div>
+
+            <div class="option-card">
+                <h3>Option 2: Clay.com POC <span class="badge badge-new">FAST TURNAROUND</span></h3>
+                <p><strong>Modern "waterfall enrichment"</strong> across 75+ data providers for immediate needs</p>
+                <div class="benefits">
+                    <strong>Key Actions:</strong>
+                    <ul>
+                        <li>30-day POC with 600K credits ($720)</li>
+                        <li>Immediate data refresh for territory planning</li>
+                        <li>Compare quality vs. existing vendor capabilities</li>
+                    </ul>
+                    <strong>Best For:</strong> Urgent RevOps needs, one-time enrichment<br>
+                    <strong>Timeline:</strong> 2-3 weeks (quick setup)<br>
+                    <strong>Cost:</strong> $720/month (pay-per-use model)
+                </div>
+            </div>
+
+            <div class="option-card">
+                <h3>Option 3: In-House AI Automation</h3>
+                <p><strong>Custom solution:</strong> Claude AI + n8n workflow automation</p>
+                <div class="benefits">
+                    <strong>Key Actions:</strong>
+                    <ul>
+                        <li>Build AI-powered web scraping for firmographic data</li>
+                        <li>Automated CSV export or direct Salesforce updates</li>
+                        <li>Custom workflows for specific high-value use cases</li>
+                    </ul>
+                    <strong>Best For:</strong> Specific use cases, lowest long-term cost<br>
+                    <strong>Timeline:</strong> 4-6 weeks (development time)<br>
+                    <strong>Cost:</strong> ~$200/month (compute costs only)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Detailed Comparison -->
+        <div class="slide">
+            <h2>Solution Comparison & Decision Factors</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Maximize Existing</th>
+                        <th>Clay.com POC</th>
+                        <th>In-House AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Speed to RevOps Data</strong></td>
+                        <td>4-6 weeks</td>
+                        <td class="check">2-3 weeks (FASTEST)</td>
+                        <td>4-6 weeks</td>
+                    </tr>
+                    <tr>
+                        <td><strong>New Cost Required</strong></td>
+                        <td class="check">$0 (existing contracts)</td>
+                        <td>$720/month</td>
+                        <td>~$200/month</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aligns with Cost Mandate</strong></td>
+                        <td class="check">YES (maximize paid tools)</td>
+                        <td>Moderate (new spend)</td>
+                        <td class="check">YES (lowest cost)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Coverage</strong></td>
+                        <td>Good (40-60%)</td>
+                        <td class="check">Excellent (80%+)</td>
+                        <td>Variable (60-70%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automated CRM Updates</strong></td>
+                        <td class="check">YES (long-term)</td>
+                        <td>Limited (manual exports)</td>
+                        <td class="check">YES (customizable)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Territory Planning Ready</strong></td>
+                        <td>Requires wait</td>
+                        <td class="check">Immediate refresh</td>
+                        <td>Requires wait</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Team Availability Required</strong></td>
+                        <td>Moderate (vendor coordination)</td>
+                        <td class="check">Low (self-service)</td>
+                        <td>High (development time)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Long-term Sustainability</strong></td>
+                        <td class="check">HIGH</td>
+                        <td>Moderate</td>
+                        <td class="check">HIGH</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="problem-box" style="margin-top: 30px;">
+                <h3>⚡ If Territory Planning Needs Data Urgently</h3>
+                <p><strong>Recommended:</strong> Clay.com POC for immediate 2-3 week data refresh while simultaneously pursuing Option 1 (Clearbit/6sense extension) for long-term automation.</p>
+            </div>
+
+            <div class="success-box" style="margin-top: 20px;">
+                <h3>If We Have 4-6 Weeks</h3>
+                <p><strong>Recommended:</strong> Start with Option 1 (maximize existing vendors) to align with cost consolidation mandate. Add Clay or in-house solution as supplement if needed after evaluation.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Clay.com Deep Dive -->
+        <div class="slide">
+            <h2>Clay.com: Fast Data Refresh Option</h2>
+            
+            <div class="summary-box">
+                <h3>What is Waterfall Enrichment?</h3>
+                <p>Sequential search across multiple data providers (75+) until finding valid contact information — dramatically higher match rates than single-source vendors.</p>
+            </div>
+
+            <div class="key-points">
+                <div class="key-point">
+                    <h4>Traditional Single-Source</h4>
+                    <p>LeadIQ, ZoomInfo alone</p>
+                    <ul>
+                        <li>40-50% match rate</li>
+                        <li>Limited to one database</li>
+                        <li>High annual contract</li>
+                        <li>Already eliminated</li>
+                    </ul>
+                </div>
+                <div class="key-point">
+                    <h4>Clay Waterfall Approach</h4>
+                    <p>Searches 75+ providers</p>
+                    <ul>
+                        <li><strong>80%+ match rate</strong></li>
+                        <li>Multiple data sources</li>
+                        <li>Pay-per-use credits</li>
+                        <li><strong>2-3 week setup</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Use Case: Territory Planning Data Refresh</h3>
+            <div class="vendor-card" style="margin-top: 20px; background: #f0f7ff;">
+                <h4>If RevOps Needs Data Urgently</h4>
+                <ul>
+                    <li><strong>Credits:</strong> 600,000 credits ($720 one-time or monthly)</li>
+                    <li><strong>Coverage:</strong> ~10,000-15,000 enriched accounts</li>
+                    <li><strong>Timeline:</strong> 2-3 weeks from approval to data delivery</li>
+                    <li><strong>Output:</strong> CSV export with updated firmographics for territory planning</li>
+                </ul>
+            </div>
+
+            <div class="problem-box" style="margin-top: 20px;">
+                <h3>Trade-off to Consider</h3>
+                <p><strong>Clay is excellent for one-time refreshes</strong> but doesn't provide ongoing automated CRM enrichment. For long-term automation, Option 1 (Clearbit/6sense) or Option 3 (in-house) are better fits.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Implementation Timeline -->
+        <div class="slide">
+            <h2>Sample Implementation Timeline</h2>
+            
+            <div class="problem-box">
+                <h3>⚠️ Timeline is Illustrative</h3>
+                <p><strong>Actual timeline depends on:</strong> Team availability, RevOps territory planning urgency, and selected approach. This represents a reasonable estimate pending resource allocation.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>Immediate: Decision on Urgency (Week 1)</h4>
+                        <p><strong>Key Question:</strong> Does RevOps need data for territory planning within 2-3 weeks?</p>
+                        <p><strong>Action:</strong> Determine if Clay POC is needed for immediate refresh vs. waiting for long-term solution</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>If Urgent: Clay POC (Weeks 2-4)</h4>
+                        <p><strong>Actions:</strong> Provision Clay account (600K credits), upload target accounts, run enrichment</p>
+                        <p><strong>Output:</strong> Updated firmographic data for territory planning</p>
+                        <p><em>Pending: Budget approval and team bandwidth</em></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>Parallel: Vendor Discussions (Weeks 2-4)</h4>
+                        <p><strong>Actions:</strong> Clearbit pricing for Salesforce extension, 6sense capability audit, review contract terms</p>
+                        <p><strong>Output:</strong> Cost analysis and technical requirements for long-term automation</p>
+                        <p><em>Pending: Vendor availability and team bandwidth</em></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h4>Long-term: Automation Build (Weeks 5-10)</h4>
+                        <p><strong>Actions:</strong> Implement Clearbit Salesforce integration OR build in-house solution, configure automated enrichment workflows</p>
+                        <p><strong>Output:</strong> Automated CRM enrichment for ongoing data quality</p>
+                        <p><em>Pending: Selected approach and development resources</em></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">5</div>
+                    <div class="timeline-content">
+                        <h4>Evaluation & Optimization (Ongoing)</h4>
+                        <p><strong>Actions:</strong> Monitor data quality, measure cost savings, optimize workflows based on usage patterns</p>
+                        <p><strong>Output:</strong> Continuous improvement of enrichment strategy</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box" style="margin-top: 30px;">
+                <h3>Timeline Flexibility</h3>
+                <p>This timeline can be compressed or extended based on RevOps territory planning urgency and team member availability. Key decision point is Week 1: urgency assessment.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Expected Business Impact -->
+        <div class="slide">
+            <h2>Expected Business Impact</h2>
+            
+            <div class="summary-box">
+                <h3>🎯 Aligns with Cost Consolidation Mandate</h3>
+                <p><strong>Primary Goal:</strong> Maximize existing vendor investments (Clearbit, 6sense) before adding new costs, while addressing immediate enrichment needs.</p>
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="number">$0</div>
+                    <div class="label">New Spend (Option 1)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">80%+</div>
+                    <div class="label">Data Match Rate (Clay)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">2-3wks</div>
+                    <div class="label">Fast Turnaround (if urgent)</div>
+                </div>
+            </div>
+
+            <h3>Key Benefits by Approach</h3>
+            <div class="key-points">
+                <div class="key-point">
+                    <h4>💰 Option 1: Cost Optimization</h4>
+                    <p>Maximize tools we already pay for, eliminate redundant spend, align with consolidation mandate</p>
+                </div>
+                <div class="key-point">
+                    <h4>⚡ Option 2: Speed to Value</h4>
+                    <p>Address urgent RevOps needs within 2-3 weeks, highest data coverage for territory planning</p>
+                </div>
+                <div class="key-point">
+                    <h4>🔧 Option 3: Long-term Control</h4>
+                    <p>Complete customization, lowest ongoing cost, builds internal capability</p>
+                </div>
+                <div class="key-point">
+                    <h4>🤖 All Options: Automation</h4>
+                    <p>Reduce manual enrichment work, improve data quality, enable better targeting</p>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <h3>Alignment with Broader Initiative</h3>
+                <p>This enrichment strategy supports the <strong>sales tech stack transformation</strong> goal of saving reps 5-10 hours per week on administrative work through AI-powered automation.</p>
+            </div>
+
+            <div class="problem-box" style="margin-top: 20px;">
+                <h3>Trade-offs to Consider</h3>
+                <ul>
+                    <li><strong>Speed vs. Cost:</strong> Clay is fastest (2-3 weeks) but adds new spend ($720)</li>
+                    <li><strong>Urgency vs. Sustainability:</strong> Quick refresh vs. long-term automated solution</li>
+                    <li><strong>Buy vs. Build:</strong> Vendor solution vs. in-house development investment</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Risk Mitigation -->
+        <div class="slide">
+            <h2>Risk Mitigation & Considerations</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Risk</th>
+                        <th>Impact</th>
+                        <th>Mitigation Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Territory planning delayed by data gaps</strong></td>
+                        <td>High</td>
+                        <td>Clay POC can deliver refreshed data in 2-3 weeks if urgent; 6sense data available immediately</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clearbit/6sense extension costs higher than expected</strong></td>
+                        <td>Medium</td>
+                        <td>Get quotes before committing; Clay or in-house options available as alternatives</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Team bandwidth limited for implementation</strong></td>
+                        <td>Medium</td>
+                        <td>Timeline is flexible; Clay is self-service (low bandwidth); can phase implementations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data quality doesn't meet expectations</strong></td>
+                        <td>Medium</td>
+                        <td>Clay POC provides data validation before commitment; existing vendors are proven</td>
+                    </tr>
+                    <tr>
+                        <td><strong>New spend conflicts with cost mandate</strong></td>
+                        <td>Low-Medium</td>
+                        <td>Option 1 has $0 new cost; Clay can be one-time spend; in-house is lowest ongoing cost</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Integration complexity</strong></td>
+                        <td>Low</td>
+                        <td>Clearbit/Clay have native Salesforce connectors; 6sense already integrated</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <h3>✅ Already Mitigated: Vendor Lock-in</h3>
+                <p><strong>LeadIQ and D&B contracts not renewed</strong> — we've already eliminated redundant vendors. Now optimizing around remaining investments.</p>
+            </div>
+
+            <div class="summary-box" style="margin-top: 20px;">
+                <h3>Flexible Approach Minimizes Risk</h3>
+                <p>Three distinct options allow us to choose based on urgency, budget, and team availability rather than being locked into one path.</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Next Steps & Decision Points -->
+        <div class="slide">
+            <h2>Decision Framework & Next Steps</h2>
+            
+            <div class="problem-box">
+                <h3>🎯 Critical Decision Needed: Urgency Assessment</h3>
+                <p><strong>Question for RevOps Leadership:</strong> Is updated firmographic data required for territory planning within the next 2-3 weeks, or can we wait 4-6 weeks for a long-term automated solution?</p>
+            </div>
+
+            <h3>Decision Tree</h3>
+            <div class="vendor-grid" style="margin-top: 30px;">
+                <div class="vendor-card existing">
+                    <h4>If Data Needed in 2-3 Weeks</h4>
+                    <p><strong>Recommended Path:</strong></p>
+                    <ul>
+                        <li>Approve Clay POC ($720)</li>
+                        <li>Immediate account enrichment</li>
+                        <li>Parallel: Begin Clearbit/6sense discussions for long-term</li>
+                    </ul>
+                </div>
+                <div class="vendor-card existing">
+                    <h4>If We Have 4-6 Weeks</h4>
+                    <p><strong>Recommended Path:</strong></p>
+                    <ul>
+                        <li>Start with Option 1 (maximize existing vendors)</li>
+                        <li>$0 new cost — aligns with mandate</li>
+                        <li>Build automated enrichment infrastructure</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="summary-box" style="margin-top: 30px;">
+                <h3>Immediate Next Steps (Pending Decision)</h3>
+                <ol style="font-size: 18px;">
+                    <li><strong>This Week:</strong> Confirm territory planning timeline and urgency with RevOps leadership</li>
+                    <li><strong>If Urgent:</strong> Request approval for Clay POC ($720) and provision account</li>
+                    <li><strong>Parallel Track:</strong> Contact Clearbit for Salesforce extension pricing quote</li>
+                    <li><strong>Week 2:</strong> Begin selected approach based on urgency decision</li>
+                </ol>
+            </div>
+
+            <h3>Approval Requested (If Urgent Path Selected)</h3>
+            <div class="vendor-card" style="margin-top: 20px; border: 2px solid #0066cc;">
+                <h4>Clay.com POC Budget</h4>
+                <ul>
+                    <li><strong>Amount:</strong> $720 for 600K credits (one-time or monthly)</li>
+                    <li><strong>Purpose:</strong> Immediate data refresh for territory planning</li>
+                    <li><strong>Timeline:</strong> 2-3 weeks to enriched data delivery</li>
+                    <li><strong>Owner:</strong> Austin Johnsey, Sales Operations</li>
+                </ul>
+            </div>
+
+            <div class="success-box" style="margin-top: 20px;">
+                <h3>Purpose of This Presentation</h3>
+                <p>This document outlines strategic options to guide decision-making. <strong>No commitment required until urgency is assessed and team availability confirmed.</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Contact & Questions -->
+        <div class="slide" style="justify-content: center; text-align: center;">
+            <h2>Questions & Discussion</h2>
+            
+            <div class="problem-box" style="text-align: left; max-width: 800px; margin: 40px auto;">
+                <h3>Context: Cost Consolidation Mandate</h3>
+                <p style="font-size: 18px;">We're under pressure to <strong>reduce vendor spend and maximize existing tools</strong>. LeadIQ and D&B are already not renewed. This presentation evaluates options to fill that gap strategically.</p>
+            </div>
+
+            <div class="summary-box" style="text-align: left; max-width: 800px; margin: 40px auto;">
+                <h3>Key Takeaways</h3>
+                <ol style="font-size: 18px;">
+                    <li><strong>Decision needed:</strong> Does RevOps need territory planning data in 2-3 weeks or 4-6 weeks?</li>
+                    <li><strong>Three strategic options</strong> available based on urgency, budget, and team availability</li>
+                    <li><strong>Option 1 ($0 new cost):</strong> Maximize Clearbit/6sense — aligns with cost mandate</li>
+                    <li><strong>Option 2 ($720):</strong> Clay for urgent 2-3 week data refresh if needed</li>
+                    <li><strong>Option 3 (~$200):</strong> In-house AI solution for custom long-term automation</li>
+                </ol>
+            </div>
+
+            <div class="success-box" style="text-align: left; max-width: 800px; margin: 40px auto;">
+                <h3>This Presentation's Purpose</h3>
+                <p style="font-size: 18px;"><strong>To guide decision-making</strong> by presenting strategic options, trade-offs, and considerations. Timeline and approach are flexible based on RevOps urgency and team member availability.</p>
+            </div>
+
+            <p style="font-size: 20px; color: #333; margin-top: 60px;">
+                <strong>Prepared by:</strong> Austin Johnsey, Sales Operations<br>
+                <strong>Supporting:</strong> Sales Tech Stack Transformation Initiative<br>
+                <strong>Contact:</strong> Slack @Austin or EndGame
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>

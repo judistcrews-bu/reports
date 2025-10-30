@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce → EndGame MCP Integration Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0070d2;
+            --secondary-color: #16325c;
+            --success-color: #04844b;
+            --warning-color: #fe9339;
+            --error-color: #c23934;
+            --bg-color: #f3f3f3;
+            --card-bg: #ffffff;
+            --text-color: #181818;
+            --text-muted: #706e6b;
+            --border-color: #dddbda;
+            --code-bg: #f4f6f9;
+            --code-border: #e0e5ee;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 0;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: var(--secondary-color);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .sidebar .subtitle {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar nav ul li a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar nav ul ul {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .sidebar nav ul ul li a {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section h4 {
+            font-size: 1.25rem;
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 6px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', Consolas, Monaco, monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', Consolas, Monaco, monospace;
+            font-size: 0.875rem;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--code-bg);
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cards/Boxes */
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fef7e8;
+            border-left: 4px solid var(--warning-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid var(--success-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .error-box {
+            background: #fbe9e7;
+            border-left: 4px solid var(--error-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        /* Diagrams */
+        .diagram {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .badge-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .badge-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #0033b3; }
+        .string { color: #067d17; }
+        .comment { color: #8c8c8c; font-style: italic; }
+        .function { color: #00627a; }
+        .number { color: #1750eb; }
+
+        /* Table of Contents in main content */
+        .toc {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .toc ol {
+            margin-left: 1.5rem;
+        }
+
+        .toc a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h1>Integration Guide</h1>
+            <p class="subtitle">Salesforce → EndGame MCP</p>
+            
+            <nav>
+                <ul>
+                    <li><a href="#section-1">1. Architecture Overview</a></li>
+                    <li><a href="#section-2">2. Salesforce Setup</a>
+                        <ul>
+                            <li><a href="#section-2-1">Custom Objects</a></li>
+                            <li><a href="#section-2-2">Custom Fields</a></li>
+                            <li><a href="#section-2-3">Named Credential</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-3">3. Prompt Template Library</a>
+                        <ul>
+                            <li><a href="#section-3-1">Account Brief</a></li>
+                            <li><a href="#section-3-2">Risk Assessment</a></li>
+                            <li><a href="#section-3-3">Pipeline Analysis</a></li>
+                            <li><a href="#section-3-4">Renewal Health</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-4">4. API Integration</a>
+                        <ul>
+                            <li><a href="#section-4-1">HTTP Callout</a></li>
+                            <li><a href="#section-4-2">Request Management</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-5">5. Markdown Rendering</a>
+                        <ul>
+                            <li><a href="#section-5-1">Storage Strategy</a></li>
+                            <li><a href="#section-5-2">HTML Converter</a></li>
+                            <li><a href="#section-5-3">LWC Component</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-6">6. Polling Logic</a></li>
+                    <li><a href="#section-7">7. Error Handling</a></li>
+                    <li><a href="#section-8">8. Testing & Deployment</a></li>
+                    <li><a href="#section-9">9. Best Practices</a></li>
+                    <li><a href="#section-10">10. Use Cases</a></li>
+                    <li><a href="#appendix">Appendix</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1>Salesforce → EndGame MCP Integration Guide</h1>
+                <p class="subtitle">Comprehensive Setup & Implementation Documentation</p>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📋 Table of Contents</h3>
+                <ol>
+                    <li><a href="#section-1">Architecture Overview</a></li>
+                    <li><a href="#section-2">Salesforce Setup</a></li>
+                    <li><a href="#section-3">Prompt Template Library</a></li>
+                    <li><a href="#section-4">API Integration Patterns</a></li>
+                    <li><a href="#section-5">Markdown Storage & Rendering</a></li>
+                    <li><a href="#section-6">Polling & Response Logic</a></li>
+                    <li><a href="#section-7">Error Handling</a></li>
+                    <li><a href="#section-8">Testing & Deployment</a></li>
+                    <li><a href="#section-9">Best Practices & Optimization</a></li>
+                    <li><a href="#section-10">Common Use Cases & Flows</a></li>
+                    <li><a href="#appendix">Appendix: Quick Reference</a></li>
+                </ol>
+            </div>
+
+            <!-- Section 1: Architecture Overview -->
+            <section id="section-1" class="section">
+                <h2>1. Architecture Overview</h2>
+
+                <h3>System Flow</h3>
+                <div class="diagram">
+┌─────────────────┐
+│   Salesforce    │
+│   (Trigger)     │
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│  Named          │
+│  Credential     │ ← API Authentication
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│  Apex Class     │
+│  (HTTP Callout) │ ← Enqueue EndGame Request
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│  EndGame MCP    │
+│  Server         │ ← Returns messageId + threadId
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│  Scheduled Apex │
+│  (Poll q15s)    │ ← Check queue_status
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│  Process Result │
+│  - Parse MD     │
+│  - Update SF    │
+│  - Render       │
+└─────────────────┘
+                </div>
+
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Custom Object:</strong> <code>EndGame_Analysis__c</code> - Stores analysis requests and results</li>
+                    <li><strong>Custom Fields:</strong> On Account, Opportunity, and custom object</li>
+                    <li><strong>Apex Classes:</strong> HTTP callout handler, polling scheduler, markdown parser</li>
+                    <li><strong>Lightning Web Component:</strong> Markdown renderer</li>
+                    <li><strong>Flow/Process Builder:</strong> Trigger integration points</li>
+                </ul>
+            </section>
+
+            <!-- Section 2: Salesforce Setup -->
+            <section id="section-2" class="section">
+                <h2>2. Salesforce Setup</h2>
+
+                <h3 id="section-2-1">2.1 Create Custom Objects</h3>
+
+                <h4>EndGame_Analysis__c</h4>
+                <div class="info-box">
+                    <strong>Object Label:</strong> EndGame Analysis<br>
+                    <strong>API Name:</strong> EndGame_Analysis__c
+                </div>
+
+                <p><strong>Fields:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Label</th>
+                            <th>API Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Account</td>
+                            <td>Account__c</td>
+                            <td>Lookup(Account)</td>
+                            <td>Related Account</td>
+                        </tr>
+                        <tr>
+                            <td>Opportunity</td>
+                            <td>Opportunity__c</td>
+                            <td>Lookup(Opportunity)</td>
+                            <td>Related Opportunity (optional)</td>
+                        </tr>
+                        <tr>
+                            <td>Analysis Type</td>
+                            <td>Analysis_Type__c</td>
+                            <td>Picklist</td>
+                            <td>Type of analysis requested</td>
+                        </tr>
+                        <tr>
+                            <td>Request Status</td>
+                            <td>Request_Status__c</td>
+                            <td>Picklist</td>
+                            <td>Pending, In Progress, Complete, Error</td>
+                        </tr>
+                        <tr>
+                            <td>Message ID</td>
+                            <td>Message_ID__c</td>
+                            <td>Text(255)</td>
+                            <td>EndGame message ID</td>
+                        </tr>
+                        <tr>
+                            <td>Thread ID</td>
+                            <td>Thread_ID__c</td>
+                            <td>Text(255)</td>
+                            <td>EndGame thread ID</td>
+                        </tr>
+                        <tr>
+                            <td>Template ID</td>
+                            <td>Template_ID__c</td>
+                            <td>Text(255)</td>
+                            <td>EndGame template ID used</td>
+                        </tr>
+                        <tr>
+                            <td>Prompt</td>
+                            <td>Prompt__c</td>
+                            <td>Long Text Area(32768)</td>
+                            <td>The prompt sent</td>
+                        </tr>
+                        <tr>
+                            <td>Raw Response</td>
+                            <td>Raw_Response__c</td>
+                            <td>Long Text Area(131072)</td>
+                            <td>Raw markdown response</td>
+                        </tr>
+                        <tr>
+                            <td>Parsed Summary</td>
+                            <td>Parsed_Summary__c</td>
+                            <td>Long Text Area(32768)</td>
+                            <td>Extracted key insights</td>
+                        </tr>
+                        <tr>
+                            <td>Request Date</td>
+                            <td>Request_Date__c</td>
+                            <td>DateTime</td>
+                            <td>When request was made</td>
+                        </tr>
+                        <tr>
+                            <td>Completion Date</td>
+                            <td>Completion_Date__c</td>
+                            <td>DateTime</td>
+                            <td>When completed</td>
+                        </tr>
+                        <tr>
+                            <td>Error Message</td>
+                            <td>Error_Message__c</td>
+                            <td>Long Text Area(5000)</td>
+                            <td>Error details if failed</td>
+                        </tr>
+                        <tr>
+                            <td>Poll Count</td>
+                            <td>Poll_Count__c</td>
+                            <td>Number(3,0)</td>
+                            <td>Number of polling attempts</td>
+                        </tr>
+                        <tr>
+                            <td>Last Polled</td>
+                            <td>Last_Polled__c</td>
+                            <td>DateTime</td>
+                            <td>Last poll timestamp</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Analysis_Type__c Picklist Values:</h4>
+                <ul>
+                    <li>Account Brief</li>
+                    <li>Opportunity Risk Assessment</li>
+                    <li>Pipeline Analysis</li>
+                    <li>Renewal Health Check</li>
+                    <li>Competitive Intelligence</li>
+                    <li>Executive Briefing</li>
+                    <li>Territory Summary</li>
+                    <li>Win/Loss Analysis</li>
+                </ul>
+
+                <h4>Request_Status__c Picklist Values:</h4>
+                <ul>
+                    <li>Pending</li>
+                    <li>Queued</li>
+                    <li>In Progress</li>
+                    <li>Complete</li>
+                    <li>Error</li>
+                    <li>Timeout</li>
+                </ul>
+
+                <h3 id="section-2-2">2.2 Add Custom Fields to Standard Objects</h3>
+
+                <h4>Account Object</h4>
+                <pre><code>- Latest_EndGame_Analysis__c (Lookup to EndGame_Analysis__c)
+- AI_Health_Score__c (Number, 0-100)
+- AI_Risk_Level__c (Picklist: Low, Medium, High, Critical)
+- AI_Summary__c (Rich Text Area, 5000)
+- Last_AI_Analysis_Date__c (DateTime)</code></pre>
+
+                <h4>Opportunity Object</h4>
+                <pre><code>- Latest_EndGame_Analysis__c (Lookup to EndGame_Analysis__c)
+- AI_Win_Probability__c (Percent)
+- AI_Risk_Factors__c (Long Text Area, 5000)
+- AI_Recommended_Actions__c (Long Text Area, 5000)
+- Last_AI_Analysis_Date__c (DateTime)</code></pre>
+
+                <h3 id="section-2-3">2.3 Setup Named Credential</h3>
+
+                <div class="info-box">
+                    <p><strong>Setup → Named Credentials → New Named Credential</strong></p>
+                </div>
+
+                <pre><code>Label: EndGame MCP Server
+Name: EndGame_MCP_Server
+URL: [Your EndGame MCP Server URL]
+Identity Type: Named Principal
+Authentication Protocol: Custom
+Generate Authorization Header: Yes
+Authorization Header: Bearer {!$Credential.Password}</code></pre>
+
+                <p><strong>Named Credential Principle:</strong></p>
+                <pre><code>Username: [Your API Key]
+Password: [Your API Secret/Token]</code></pre>
+            </section>
+
+            <!-- Section 3: Prompt Template Library -->
+            <section id="section-3" class="section">
+                <h2>3. Prompt Template Library</h2>
+
+                <h3 id="section-3-1">3.1 Account Brief Template</h3>
+
+                <div class="success-box">
+                    <strong>Use Case:</strong> Generate comprehensive account overview for AE review<br>
+                    <strong>Template Name:</strong> <code>account_brief_template</code>
+                </div>
+
+                <p><strong>Prompt Structure:</strong></p>
+                <pre><code>Generate a comprehensive account brief for Account ID: {{Account.Id}}
+
+Include the following sections:
+
+## Executive Summary
+- Company overview and industry context
+- Relationship timeline and key milestones
+- Current engagement status
+
+## Key Stakeholders
+- Decision makers and influencers
+- Champion identification
+- Stakeholder sentiment analysis
+
+## Business Context
+- Strategic initiatives we're supporting
+- Business outcomes achieved
+- ROI and value delivered
+
+## Health Assessment
+- Overall account health score (0-100)
+- Risk factors (if any)
+- Opportunity areas
+
+## Recent Activity
+- Last 30 days: meetings, emails, support tickets
+- Engagement trends
+- Response patterns
+
+## Recommended Next Steps
+- Priority actions for the next 30 days
+- Relationship building opportunities
+- Expansion potential
+
+Format tables using markdown tables. Use bullet points for lists. Bold key metrics.</code></pre>
+
+                <h3 id="section-3-2">3.2 Opportunity Risk Assessment Template</h3>
+
+                <div class="warning-box">
+                    <strong>Use Case:</strong> Identify deal risks before quarter close<br>
+                    <strong>Template Name:</strong> <code>opportunity_risk_assessment_template</code>
+                </div>
+
+                <p><strong>Prompt Structure:</strong></p>
+                <pre><code>Analyze Opportunity ID: {{Opportunity.Id}} for Account ID: {{Account.Id}}
+
+Provide a risk assessment including:
+
+## Deal Overview
+- Opportunity name: {{Opportunity.Name}}
+- Amount: {{Opportunity.Amount}}
+- Stage: {{Opportunity.StageName}}
+- Close date: {{Opportunity.CloseDate}}
+- Age in current stage: {{Opportunity.Age}}
+
+## Risk Analysis
+Create a risk matrix with the following dimensions:
+- Stakeholder alignment (Red/Yellow/Green)
+- Budget confirmation (Red/Yellow/Green)
+- Technical validation (Red/Yellow/Green)
+- Competition status (Red/Yellow/Green)
+- Timeline realism (Red/Yellow/Green)
+
+## Critical Issues
+List any blockers or red flags that could prevent closure
+
+## Deal Momentum
+- Recent activity level (High/Medium/Low)
+- Champion engagement score
+- Multi-threading status
+
+## Competitive Intel
+- Known competitors
+- Our differentiators
+- Competitive risks
+
+## Win Probability
+Based on all factors, provide:
+- AI-calculated win probability (0-100%)
+- Confidence level in the prediction
+- Key factors influencing probability
+
+## Action Plan
+Prioritized list of actions needed to:
+1. De-risk the deal
+2. Accelerate the timeline
+3. Increase win probability
+
+Use markdown tables for the risk matrix. Bold critical items.</code></pre>
+
+                <h3 id="section-3-3">3.3 Pipeline Analysis Template</h3>
+
+                <div class="info-box">
+                    <strong>Use Case:</strong> Weekly pipeline review for sales leaders<br>
+                    <strong>Template Name:</strong> <code>pipeline_analysis_template</code>
+                </div>
+
+                <p><strong>Prompt Structure:</strong></p>
+                <pre><code>Analyze the pipeline for {{User.Name}} (User ID: {{User.Id}})
+
+Scope: {{Analysis_Scope}} (e.g., "Q4 2025", "Next 30 Days", "This Quarter")
+
+Provide analysis in the following format:
+
+## Pipeline Summary
+| Metric | Value | Trend |
+|--------|-------|-------|
+| Total Pipeline | $XXX | ↑/↓/→ |
+| Weighted Pipeline | $XXX | ↑/↓/→ |
+| Number of Opportunities | XX | ↑/↓/→ |
+| Average Deal Size | $XXX | ↑/↓/→ |
+| Win Rate (Last 90 Days) | XX% | ↑/↓/→ |
+
+## Stage Distribution
+Break down opportunities by stage with counts and amounts
+
+## Risk Segmentation
+Categorize deals as:
+- **High Confidence** (>70% likely to close)
+- **Medium Risk** (40-70% likely)
+- **At Risk** (<40% likely)
+
+For each segment, list top 3 deals with brief rationale.
+
+## Coverage Analysis
+- Quota for period: $XXX
+- Pipeline coverage ratio: X.XX
+- Gap to quota: $XXX
+- Recommendation: [Sufficient/Need more pipeline/Focus on conversion]
+
+## Deal Velocity
+- Average days in pipeline: XX days
+- Fastest moving deals (list top 3)
+- Stalled deals (>30 days in stage, list all)
+
+## Recommended Focus Areas
+1. [Priority action]
+2. [Priority action]
+3. [Priority action]
+
+Use tables and bold key metrics. Highlight deals requiring immediate attention.</code></pre>
+
+                <h3 id="section-3-4">3.4 Renewal Health Check Template</h3>
+
+                <div class="success-box">
+                    <strong>Use Case:</strong> Proactive renewal risk management<br>
+                    <strong>Template Name:</strong> <code>renewal_health_check_template</code>
+                </div>
+
+                <p><strong>Prompt Structure:</strong></p>
+                <pre><code>Assess renewal health for Account ID: {{Account.Id}}
+
+Contract Details:
+- Current ARR: {{Account.Annual_Recurring_Revenue__c}}
+- Renewal Date: {{Account.Renewal_Date__c}}
+- Days to Renewal: {{Account.Days_To_Renewal__c}}
+
+Provide renewal assessment:
+
+## Overall Renewal Health
+- Health Score: X/100
+- Risk Level: Low/Medium/High/Critical
+- Renewal Likelihood: XX%
+
+## Health Indicators
+
+### Product Adoption
+- License utilization: XX%
+- Active users vs. purchased: XX/XX
+- Feature adoption score: X/10
+- Trend: Increasing/Stable/Declining
+
+### Engagement Metrics
+- Last executive touchpoint: XX days ago
+- Support ticket volume (last 90 days): XX
+- NPS/CSAT score: XX
+- Executive sponsorship: Strong/Moderate/Weak
+
+### Business Value
+- Documented ROI: $XXX or XX%
+- Business outcomes achieved: [List]
+- Value realization: On track/At risk
+- Case studies/references: Yes/No
+
+### Relationship Strength
+- Champion status: Strong/Moderate/Weak/None
+- Multi-threading: XX contacts engaged
+- Stakeholder satisfaction: High/Medium/Low
+- Escalations (last 90 days): XX
+
+## Risk Factors
+List specific risks that could impact renewal:
+1. [Risk with severity: High/Medium/Low]
+2. [Risk with severity]
+
+## Expansion Opportunities
+- Upsell potential: $XXX
+- Cross-sell opportunities: [List products]
+- Additional use cases: [List]
+
+## Recommended Actions
+Prioritized list of retention activities:
+1. **[Action]** (Timeline: [XX days before renewal])
+2. **[Action]** (Timeline: [XX days before renewal])
+
+Create a 90-60-30 day action plan if renewal is within 90 days.
+
+Use color coding: 🟢 Green, 🟡 Yellow, 🔴 Red for health indicators.</code></pre>
+
+                <h3>3.5 Quick Opportunity Brief (No Template)</h3>
+
+                <div class="info-box">
+                    <strong>Use Case:</strong> Ad-hoc opportunity analysis via Flow button
+                </div>
+
+                <p><strong>Direct Prompt:</strong></p>
+                <pre><code>Provide a quick brief for Opportunity ID: {!$Record.Id} at Account ID: {!$Record.AccountId}
+
+Include:
+1. Deal status and key facts
+2. Top 3 risks
+3. Top 3 recommended actions
+4. Win probability assessment
+
+Keep it concise (under 500 words). Use bullet points.</code></pre>
+            </section>
+
+            <!-- Section 4: API Integration Patterns -->
+            <section id="section-4" class="section">
+                <h2>4. API Integration Patterns</h2>
+
+                <h3 id="section-4-1">4.1 Apex HTTP Callout Class</h3>
+
+                <pre><code>public class EndGameMCPService {
+    
+    private static final String NAMED_CREDENTIAL = 'callout:EndGame_MCP_Server';
+    
+    // Main method to enqueue a request with template
+    public static EndGameResponse enqueueWithTemplate(
+        String templateId, 
+        String accountId, 
+        String opportunityId,
+        Map&lt;String, String&gt; additionalContext
+    ) {
+        // Build context string
+        String context = 'Account ID: ' + accountId;
+        if (String.isNotBlank(opportunityId)) {
+            context += ', Opportunity ID: ' + opportunityId;
+        }
+        
+        // Add any additional context
+        if (additionalContext != null && !additionalContext.isEmpty()) {
+            for (String key : additionalContext.keySet()) {
+                context += ', ' + key + ': ' + additionalContext.get(key);
+            }
+        }
+        
+        // Build request body
+        Map&lt;String, Object&gt; requestBody = new Map&lt;String, Object&gt;{
+            'tool' => 'prompt_with_template',
+            'parameters' => new Map&lt;String, Object&gt;{
+                'templateId' => templateId,
+                'context' => context,
+                'enqueue' => true
+            }
+        };
+        
+        return makeCallout(requestBody);
+    }
+    
+    // Method to enqueue with custom prompt (no template)
+    public static EndGameResponse enqueueWithPrompt(
+        String prompt,
+        String accountId,
+        String opportunityId
+    ) {
+        // Inject IDs into prompt
+        String fullPrompt = prompt
+            .replace('{{Account.Id}}', accountId)
+            .replace('{{Opportunity.Id}}', opportunityId != null ? opportunityId : '');
+        
+        Map&lt;String, Object&gt; requestBody = new Map&lt;String, Object&gt;{
+            'tool' => 'queue_thread_message',
+            'parameters' => new Map&lt;String, Object&gt;{
+                'prompt' => fullPrompt
+            }
+        };
+        
+        return makeCallout(requestBody);
+    }
+    
+    // Poll for status
+    public static EndGameStatusResponse checkQueueStatus(
+        String messageId,
+        String threadId
+    ) {
+        Map&lt;String, Object&gt; requestBody = new Map&lt;String, Object&gt;{
+            'tool' => 'queue_status',
+            'parameters' => new Map&lt;String, Object&gt;{
+                'messageId' => messageId,
+                'threadId' => threadId
+            }
+        };
+        
+        EndGameResponse response = makeCallout(requestBody);
+        return parseStatusResponse(response);
+    }
+    
+    // Core HTTP callout method
+    private static EndGameResponse makeCallout(Map&lt;String, Object&gt; requestBody) {
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(NAMED_CREDENTIAL);
+        req.setMethod('POST');
+        req.setHeader('Content-Type', 'application/json');
+        req.setTimeout(120000); // 2 minute timeout
+        req.setBody(JSON.serialize(requestBody));
+        
+        Http http = new Http();
+        EndGameResponse response = new EndGameResponse();
+        
+        try {
+            HttpResponse res = http.send(req);
+            response.statusCode = res.getStatusCode();
+            response.body = res.getBody();
+            response.success = (res.getStatusCode() >= 200 && res.getStatusCode() < 300);
+            
+            if (response.success) {
+                response.parsedResponse = (Map&lt;String, Object&gt;) JSON.deserializeUntyped(res.getBody());
+            } else {
+                response.errorMessage = 'HTTP ' + res.getStatusCode() + ': ' + res.getStatus();
+            }
+        } catch (Exception e) {
+            response.success = false;
+            response.errorMessage = e.getMessage();
+            response.stackTrace = e.getStackTraceString();
+        }
+        
+        return response;
+    }
+    
+    // Parse status response
+    private static EndGameStatusResponse parseStatusResponse(EndGameResponse response) {
+        EndGameStatusResponse statusResponse = new EndGameStatusResponse();
+        
+        if (!response.success) {
+            statusResponse.status = 'error';
+            statusResponse.errorMessage = response.errorMessage;
+            return statusResponse;
+        }
+        
+        Map&lt;String, Object&gt; parsed = response.parsedResponse;
+        statusResponse.status = (String) parsed.get('status');
+        
+        if (statusResponse.status == 'complete') {
+            statusResponse.artifact = (String) parsed.get('artifact');
+            statusResponse.references = (List&lt;Object&gt;) parsed.get('references');
+        }
+        
+        return statusResponse;
+    }
+    
+    // Wrapper classes
+    public class EndGameResponse {
+        public Boolean success;
+        public Integer statusCode;
+        public String body;
+        public String errorMessage;
+        public String stackTrace;
+        public Map&lt;String, Object&gt; parsedResponse;
+        
+        public String getMessageId() {
+            return parsedResponse != null ? (String) parsedResponse.get('messageId') : null;
+        }
+        
+        public String getThreadId() {
+            return parsedResponse != null ? (String) parsedResponse.get('threadId') : null;
+        }
+    }
+    
+    public class EndGameStatusResponse {
+        public String status; // 'in_progress', 'complete', 'error'
+        public String artifact; // Markdown content
+        public List&lt;Object&gt; references;
+        public String errorMessage;
+    }
+}</code></pre>
+
+                <h3 id="section-4-2">4.2 Request Management Class</h3>
+
+                <pre><code>public class EndGameAnalysisManager {
+    
+    // Create and enqueue analysis request
+    public static Id createAnalysisRequest(
+        String analysisType,
+        Id accountId,
+        Id opportunityId,
+        String templateId,
+        String customPrompt
+    ) {
+        EndGame_Analysis__c analysis = new EndGame_Analysis__c(
+            Analysis_Type__c = analysisType,
+            Account__c = accountId,
+            Opportunity__c = opportunityId,
+            Template_ID__c = templateId,
+            Prompt__c = customPrompt,
+            Request_Status__c = 'Pending',
+            Request_Date__c = System.now(),
+            Poll_Count__c = 0
+        );
+        
+        insert analysis;
+        
+        // Make async callout
+        enqueueAnalysisCallout(analysis.Id);
+        
+        return analysis.Id;
+    }
+    
+    @future(callout=true)
+    public static void enqueueAnalysisCallout(Id analysisId) {
+        EndGame_Analysis__c analysis = [
+            SELECT Id, Account__c, Opportunity__c, Template_ID__c, 
+                   Prompt__c, Analysis_Type__c
+            FROM EndGame_Analysis__c
+            WHERE Id = :analysisId
+        ];
+        
+        EndGameMCPService.EndGameResponse response;
+        
+        // Choose method based on whether template is specified
+        if (String.isNotBlank(analysis.Template_ID__c)) {
+            response = EndGameMCPService.enqueueWithTemplate(
+                analysis.Template_ID__c,
+                analysis.Account__c,
+                analysis.Opportunity__c,
+                null
+            );
+        } else {
+            response = EndGameMCPService.enqueueWithPrompt(
+                analysis.Prompt__c,
+                analysis.Account__c,
+                analysis.Opportunity__c
+            );
+        }
+        
+        // Update analysis record
+        if (response.success) {
+            analysis.Message_ID__c = response.getMessageId();
+            analysis.Thread_ID__c = response.getThreadId();
+            analysis.Request_Status__c = 'Queued';
+        } else {
+            analysis.Request_Status__c = 'Error';
+            analysis.Error_Message__c = response.errorMessage;
+        }
+        
+        update analysis;
+    }
+    
+    // Poll for results
+    public static void pollPendingAnalyses() {
+        List&lt;EndGame_Analysis__c&gt; pendingAnalyses = [
+            SELECT Id, Message_ID__c, Thread_ID__c, Poll_Count__c,
+                   Account__c, Opportunity__c, Analysis_Type__c
+            FROM EndGame_Analysis__c
+            WHERE Request_Status__c IN ('Queued', 'In Progress')
+            AND Message_ID__c != null
+            AND Thread_ID__c != null
+            AND Poll_Count__c < 240  // Max 1 hour of polling (240 * 15s)
+            LIMIT 50
+        ];
+        
+        for (EndGame_Analysis__c analysis : pendingAnalyses) {
+            pollAnalysis(analysis.Id);
+        }
+    }
+    
+    @future(callout=true)
+    public static void pollAnalysis(Id analysisId) {
+        EndGame_Analysis__c analysis = [
+            SELECT Id, Message_ID__c, Thread_ID__c, Poll_Count__c,
+                   Account__c, Opportunity__c, Analysis_Type__c
+            FROM EndGame_Analysis__c
+            WHERE Id = :analysisId
+        ];
+        
+        EndGameMCPService.EndGameStatusResponse response = 
+            EndGameMCPService.checkQueueStatus(
+                analysis.Message_ID__c,
+                analysis.Thread_ID__c
+            );
+        
+        analysis.Poll_Count__c = analysis.Poll_Count__c + 1;
+        analysis.Last_Polled__c = System.now();
+        
+        if (response.status == 'complete') {
+            analysis.Request_Status__c = 'Complete';
+            analysis.Raw_Response__c = response.artifact;
+            analysis.Completion_Date__c = System.now();
+            
+            // Parse and extract key data
+            parseAndStoreResults(analysis);
+            
+        } else if (response.status == 'error') {
+            analysis.Request_Status__c = 'Error';
+            analysis.Error_Message__c = response.errorMessage;
+            
+        } else if (response.status == 'in_progress') {
+            analysis.Request_Status__c = 'In Progress';
+        }
+        
+        update analysis;
+    }
+    
+    // Additional methods for parsing results...
+}</code></pre>
+            </section>
+
+            <!-- Section 5: Markdown Storage & Rendering -->
+            <section id="section-5" class="section">
+                <h2>5. Markdown Storage & Rendering</h2>
+
+                <h3 id="section-5-1">5.1 Storage Strategy</h3>
+
+                <div class="info-box">
+                    <strong>Recommended Approach: Hybrid Storage</strong>
+                </div>
+
+                <ol>
+                    <li><strong>Structured Data → Custom Fields</strong>
+                        <ul>
+                            <li>Extract key metrics (scores, probabilities, dates)</li>
+                            <li>Store in typed fields for reporting and automation</li>
+                            <li>Examples: <code>AI_Health_Score__c</code>, <code>AI_Win_Probability__c</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Formatted Summary → Rich Text Fields</strong>
+                        <ul>
+                            <li>Convert markdown to HTML</li>
+                            <li>Store in Rich Text Area fields</li>
+                            <li>Max 131,072 characters</li>
+                            <li>Examples: <code>AI_Summary__c</code>, <code>AI_Risk_Factors__c</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Full Analysis → ContentVersion (Files)</strong>
+                        <ul>
+                            <li>Store complete markdown as attached file</li>
+                            <li>Unlimited size, better for long-form content</li>
+                            <li>Preserves original formatting</li>
+                            <li>Easier to export/share</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3 id="section-5-2">5.2 Markdown to HTML Converter (Apex)</h3>
+
+                <pre><code>public class MarkdownToHTMLConverter {
+    
+    public static String convertToHTML(String markdown) {
+        if (String.isBlank(markdown)) return '';
+        
+        String html = markdown;
+        
+        // Headers
+        html = html.replaceAll('(?m)^### (.+)$', '&lt;h3&gt;$1&lt;/h3&gt;');
+        html = html.replaceAll('(?m)^## (.+)$', '&lt;h2&gt;$1&lt;/h2&gt;');
+        html = html.replaceAll('(?m)^# (.+)$', '&lt;h1&gt;$1&lt;/h1&gt;');
+        
+        // Bold
+        html = html.replaceAll('\\*\\*(.+?)\\*\\*', '&lt;strong&gt;$1&lt;/strong&gt;');
+        html = html.replaceAll('__(.+?)__', '&lt;strong&gt;$1&lt;/strong&gt;');
+        
+        // Italic
+        html = html.replaceAll('\\*(.+?)\\*', '&lt;em&gt;$1&lt;/em&gt;');
+        html = html.replaceAll('_(.+?)_', '&lt;em&gt;$1&lt;/em&gt;');
+        
+        // Links
+        html = html.replaceAll('\\[(.+?)\\]\\((.+?)\\)', '&lt;a href="$2"&gt;$1&lt;/a&gt;');
+        
+        // Tables - complex, simplified version
+        html = convertMarkdownTables(html);
+        
+        // Lists
+        html = convertLists(html);
+        
+        // Line breaks
+        html = html.replaceAll('(?m)^$', '&lt;br/&gt;');
+        
+        return html;
+    }
+    
+    public static void saveAsFile(String markdown, Id recordId, String fileName) {
+        ContentVersion cv = new ContentVersion();
+        cv.Title = fileName;
+        cv.PathOnClient = fileName + '.md';
+        cv.VersionData = Blob.valueOf(markdown);
+        cv.FirstPublishLocationId = recordId;
+        insert cv;
+    }
+}</code></pre>
+
+                <h3 id="section-5-3">5.3 Lightning Web Component - Markdown Viewer</h3>
+
+                <p><strong>endgameAnalysisViewer.html</strong></p>
+                <pre><code>&lt;template&gt;
+    &lt;lightning-card title="AI Analysis" icon-name="custom:custom63"&gt;
+        &lt;!-- Header with metadata --&gt;
+        &lt;div slot="actions"&gt;
+            &lt;lightning-button-group&gt;
+                &lt;lightning-button 
+                    label="Refresh" 
+                    onclick={handleRefresh}
+                    disabled={isLoading}
+                &gt;&lt;/lightning-button&gt;
+                &lt;lightning-button 
+                    label="Download" 
+                    onclick={handleDownload}
+                &gt;&lt;/lightning-button&gt;
+                &lt;lightning-button 
+                    label="New Analysis" 
+                    onclick={handleNewAnalysis}
+                &gt;&lt;/lightning-button&gt;
+            &lt;/lightning-button-group&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Loading state --&gt;
+        &lt;template if:true={isLoading}&gt;
+            &lt;div class="slds-m-around_medium"&gt;
+                &lt;lightning-spinner 
+                    alternative-text="Loading analysis..." 
+                    size="medium"
+                &gt;&lt;/lightning-spinner&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+        
+        &lt;!-- Analysis content with tabs --&gt;
+        &lt;template if:false={isLoading}&gt;
+            &lt;div class="slds-card__body slds-card__body_inner"&gt;
+                &lt;lightning-tabset active-tab-value={activeTab}&gt;
+                    &lt;lightning-tab label="Formatted" value="formatted"&gt;
+                        &lt;div class="markdown-content slds-p-around_medium"&gt;
+                            &lt;lightning-formatted-rich-text 
+                                value={htmlContent}
+                            &gt;&lt;/lightning-formatted-rich-text&gt;
+                        &lt;/div&gt;
+                    &lt;/lightning-tab&gt;
+                    
+                    &lt;lightning-tab label="Source" value="source"&gt;
+                        &lt;div class="slds-p-around_medium"&gt;
+                            &lt;pre class="markdown-source"&gt;{markdownContent}&lt;/pre&gt;
+                        &lt;/div&gt;
+                    &lt;/lightning-tab&gt;
+                    
+                    &lt;lightning-tab label="Key Insights" value="insights"&gt;
+                        &lt;!-- Extract and display key metrics --&gt;
+                    &lt;/lightning-tab&gt;
+                &lt;/lightning-tabset&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+    &lt;/lightning-card&gt;
+&lt;/template&gt;</code></pre>
+
+                <h4>Add Component to Record Page</h4>
+                <ol>
+                    <li><strong>Navigate to:</strong> Account/Opportunity Record Page</li>
+                    <li><strong>Edit Page</strong> in Lightning App Builder</li>
+                    <li><strong>Add Component:</strong> <code>endgameAnalysisViewer</code></li>
+                    <li><strong>Filter:</strong> Show only if <code>Latest_EndGame_Analysis__c</code> is not null</li>
+                    <li><strong>Save & Activate</strong></li>
+                </ol>
+            </section>
+
+            <!-- Section 6: Polling & Response Logic -->
+            <section id="section-6" class="section">
+                <h2>6. Polling & Response Logic</h2>
+
+                <h3>6.1 Schedulable Apex for Polling</h3>
+
+                <pre><code>public class EndGamePollingScheduler implements Schedulable {
+    
+    public void execute(SchedulableContext sc) {
+        // Poll all pending analyses
+        EndGameAnalysisManager.pollPendingAnalyses();
+    }
+    
+    // Schedule to run every 15 seconds (via chaining)
+    public static void schedulePolling() {
+        String jobName = 'EndGame Polling - ' + System.now().getTime();
+        String cronExp = '0 * * * * ?'; // Every minute
+        
+        System.schedule(jobName, cronExp, new EndGamePollingScheduler());
+    }
+}</code></pre>
+
+                <h3>6.2 Optimized Polling Strategy</h3>
+
+                <pre><code>public class OptimizedPollingStrategy {
+    
+    // Exponential backoff: 15s, 15s, 30s, 30s, 60s, 60s, 120s...
+    public static Integer getNextPollDelay(Integer pollCount) {
+        if (pollCount <= 2) return 15;      // First 2 polls: 15s
+        if (pollCount <= 4) return 30;      // Next 2 polls: 30s
+        if (pollCount <= 8) return 60;      // Next 4 polls: 60s
+        return 120;                         // After: 120s
+    }
+    
+    // Check if should continue polling
+    public static Boolean shouldContinuePolling(
+        EndGame_Analysis__c analysis
+    ) {
+        // Max 1 hour of polling
+        if (analysis.Poll_Count__c >= 60) return false;
+        
+        // Check if timeout
+        DateTime requestDate = analysis.Request_Date__c;
+        Integer minutesElapsed = 
+            (Integer) ((System.now().getTime() - requestDate.getTime()) / 60000);
+            
+        if (minutesElapsed > 60) return false;
+        
+        return true;
+    }
+}</code></pre>
+
+                <div class="info-box">
+                    <strong>Recommended Polling Frequency:</strong> Every 15 seconds<br>
+                    <strong>Maximum Polling Duration:</strong> 1 hour (240 attempts)<br>
+                    <strong>Strategy:</strong> Exponential backoff to reduce API load
+                </div>
+            </section>
+
+            <!-- Section 7: Error Handling -->
+            <section id="section-7" class="section">
+                <h2>7. Error Handling</h2>
+
+                <h3>7.1 Error Types & Responses</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Error Type</th>
+                            <th>HTTP Code</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AUTHENTICATION_ERROR</td>
+                            <td>401, 403</td>
+                            <td>Invalid API credentials</td>
+                            <td>Check Named Credential</td>
+                        </tr>
+                        <tr>
+                            <td>RATE_LIMIT_ERROR</td>
+                            <td>429</td>
+                            <td>Too many requests</td>
+                            <td>Retry with backoff</td>
+                        </tr>
+                        <tr>
+                            <td>TIMEOUT_ERROR</td>
+                            <td>N/A</td>
+                            <td>Request timeout</td>
+                            <td>Continue polling</td>
+                        </tr>
+                        <tr>
+                            <td>INVALID_REQUEST</td>
+                            <td>400</td>
+                            <td>Bad request format</td>
+                            <td>Do not retry</td>
+                        </tr>
+                        <tr>
+                            <td>ENDGAME_ERROR</td>
+                            <td>500+</td>
+                            <td>Server error</td>
+                            <td>Retry up to 3 times</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>7.2 Error Handling Code</h3>
+
+                <pre><code>public class EndGameErrorHandler {
+    
+    public enum ErrorType {
+        NETWORK_ERROR,
+        AUTHENTICATION_ERROR,
+        RATE_LIMIT_ERROR,
+        TIMEOUT_ERROR,
+        INVALID_REQUEST,
+        ENDGAME_ERROR,
+        PARSING_ERROR,
+        UNKNOWN_ERROR
+    }
+    
+    public static ErrorType classifyError(
+        EndGameMCPService.EndGameResponse response
+    ) {
+        if (response.statusCode == 401 || response.statusCode == 403) {
+            return ErrorType.AUTHENTICATION_ERROR;
+        }
+        if (response.statusCode == 429) {
+            return ErrorType.RATE_LIMIT_ERROR;
+        }
+        if (response.statusCode == 400) {
+            return ErrorType.INVALID_REQUEST;
+        }
+        if (response.statusCode >= 500) {
+            return ErrorType.ENDGAME_ERROR;
+        }
+        if (response.errorMessage != null && 
+            response.errorMessage.contains('timeout')) {
+            return ErrorType.TIMEOUT_ERROR;
+        }
+        if (!response.success) {
+            return ErrorType.NETWORK_ERROR;
+        }
+        
+        return ErrorType.UNKNOWN_ERROR;
+    }
+    
+    public static Boolean shouldRetry(ErrorType errorType, Integer attemptCount) {
+        // Don't retry authentication or invalid request errors
+        if (errorType == ErrorType.AUTHENTICATION_ERROR || 
+            errorType == ErrorType.INVALID_REQUEST) {
+            return false;
+        }
+        
+        // Retry up to 3 times for transient errors
+        if (attemptCount < 3) {
+            return errorType == ErrorType.NETWORK_ERROR || 
+                   errorType == ErrorType.TIMEOUT_ERROR ||
+                   errorType == ErrorType.RATE_LIMIT_ERROR;
+        }
+        
+        return false;
+    }
+}</code></pre>
+            </section>
+
+            <!-- Section 8: Testing & Deployment -->
+            <section id="section-8" class="section">
+                <h2>8. Testing & Deployment</h2>
+
+                <h3>8.1 Test Class Example</h3>
+
+                <pre><code>@isTest
+private class EndGameMCPServiceTest {
+    
+    @testSetup
+    static void setup() {
+        // Create test account
+        Account acc = new Account(
+            Name = 'Test Account',
+            AI_Health_Score__c = 75
+        );
+        insert acc;
+        
+        // Create test opportunity
+        Opportunity opp = new Opportunity(
+            Name = 'Test Opportunity',
+            AccountId = acc.Id,
+            StageName = 'Prospecting',
+            CloseDate = Date.today().addDays(30),
+            Amount = 100000
+        );
+        insert opp;
+    }
+    
+    @isTest
+    static void testEnqueueWithTemplate() {
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+        
+        // Set mock callout
+        Test.setMock(HttpCalloutMock.class, new EndGameMockSuccess());
+        
+        Test.startTest();
+        EndGameMCPService.EndGameResponse response = 
+            EndGameMCPService.enqueueWithTemplate(
+                'test_template_id',
+                acc.Id,
+                null,
+                null
+            );
+        Test.stopTest();
+        
+        System.assert(response.success, 'Callout should succeed');
+        System.assertNotEquals(null, response.getMessageId());
+        System.assertNotEquals(null, response.getThreadId());
+    }
+    
+    // Mock HTTP response classes
+    private class EndGameMockSuccess implements HttpCalloutMock {
+        public HttpResponse respond(HttpRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(200);
+            res.setBody('{"messageId":"msg_123","threadId":"thread_456"}');
+            return res;
+        }
+    }
+}</code></pre>
+
+                <h3>8.2 Deployment Checklist</h3>
+
+                <div class="success-box">
+                    <h4>Phase 1: Setup (Dev Sandbox)</h4>
+                    <ul class="checklist">
+                        <li>Create Custom Objects and Fields</li>
+                        <li>Configure Named Credential</li>
+                        <li>Deploy Apex Classes</li>
+                        <li>Deploy Lightning Web Components</li>
+                        <li>Create Test Data</li>
+                        <li>Run All Tests (>75% coverage)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Phase 2: Configuration</h4>
+                    <ul class="checklist">
+                        <li>Obtain Template IDs from EndGame UI</li>
+                        <li>Configure Flow Triggers</li>
+                        <li>Set up Scheduled Jobs</li>
+                        <li>Configure Record Page Layouts</li>
+                        <li>Set Field-Level Security</li>
+                        <li>Configure Sharing Rules</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Phase 3: Testing (Dev Sandbox)</h4>
+                    <ul class="checklist">
+                        <li>Test Account Brief generation</li>
+                        <li>Test Opportunity Risk Assessment</li>
+                        <li>Test Pipeline Analysis</li>
+                        <li>Test Renewal Health Check</li>
+                        <li>Test error scenarios</li>
+                        <li>Test polling mechanism</li>
+                        <li>Test markdown rendering</li>
+                        <li>Verify data extraction</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Phase 4: UAT (Partial Sandbox)</h4>
+                    <ul class="checklist">
+                        <li>Train pilot users</li>
+                        <li>Monitor API usage</li>
+                        <li>Collect feedback</li>
+                        <li>Refine prompts based on results</li>
+                        <li>Tune polling frequency</li>
+                        <li>Optimize performance</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Phase 5: Production Deployment</h4>
+                    <ul class="checklist">
+                        <li>Deploy metadata</li>
+                        <li>Configure Named Credential (Prod)</li>
+                        <li>Schedule polling jobs</li>
+                        <li>Enable for pilot group</li>
+                        <li>Monitor for 1 week</li>
+                        <li>Gradual rollout to all users</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 9: Best Practices -->
+            <section id="section-9" class="section">
+                <h2>9. Best Practices & Optimization</h2>
+
+                <h3>9.1 Prompt Engineering Tips</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Practice</th>
+                            <th>✅ Good Example</th>
+                            <th>❌ Bad Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Be Specific</td>
+                            <td>"Include renewal date, ARR, and days to renewal"</td>
+                            <td>"Tell me about the renewal"</td>
+                        </tr>
+                        <tr>
+                            <td>Request Structure</td>
+                            <td>"Format as markdown table with 3 columns"</td>
+                            <td>"Show me the data"</td>
+                        </tr>
+                        <tr>
+                            <td>Set Context</td>
+                            <td>"Analyze last 90 days of activity"</td>
+                            <td>"Look at recent stuff"</td>
+                        </tr>
+                        <tr>
+                            <td>Define Scoring</td>
+                            <td>"Score 0-100: 80+ = Green, 60-79 = Yellow, <60 = Red"</td>
+                            <td>"Give it a score"</td>
+                        </tr>
+                        <tr>
+                            <td>Actionable Output</td>
+                            <td>"Provide 3-5 specific next steps with timelines"</td>
+                            <td>"What should I do?"</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.2 Performance Optimization</h3>
+
+                <ol>
+                    <li><strong>Batch Similar Requests</strong>
+                        <ul>
+                            <li>Group analyses by account/territory</li>
+                            <li>Process during off-peak hours</li>
+                            <li>Use bulk API patterns</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cache Common Queries</strong>
+                        <ul>
+                            <li>Store account briefs for 7 days</li>
+                            <li>Refresh only when triggered by activity</li>
+                            <li>Reuse recent analyses when possible</li>
+                        </ul>
+                    </li>
+                    <li><strong>Optimize Polling</strong>
+                        <ul>
+                            <li>Use exponential backoff</li>
+                            <li>Prioritize time-sensitive analyses</li>
+                            <li>Stop polling after timeout</li>
+                        </ul>
+                    </li>
+                    <li><strong>Manage Storage</strong>
+                        <ul>
+                            <li>Archive old analyses after 90 days</li>
+                            <li>Store full markdown as files, not fields</li>
+                            <li>Clean up error records regularly</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>9.3 Security Considerations</h3>
+
+                <div class="warning-box">
+                    <h4>Critical Security Practices</h4>
+                    <ul>
+                        <li><strong>API Credentials:</strong> Store in Named Credential only, rotate quarterly</li>
+                        <li><strong>Data Access:</strong> Respect Salesforce sharing rules, don't expose sensitive data</li>
+                        <li><strong>Error Handling:</strong> Don't log sensitive data, redact API keys from traces</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 10: Common Use Cases -->
+            <section id="section-10" class="section">
+                <h2>10. Common Use Cases & Flows</h2>
+
+                <h3>10.1 Opportunity Stage Change → Risk Assessment</h3>
+
+                <div class="diagram">
+<strong>Trigger:</strong> Opportunity Stage = "Negotiation/Review"
+
+<strong>Flow:</strong>
+1. Opportunity updated → Process Builder fires
+2. Create EndGame Analysis record
+3. Call EndGame with "Opportunity Risk Assessment" template
+4. Poll every 15s until complete
+5. Update Opportunity fields:
+   - AI_Win_Probability__c
+   - AI_Risk_Factors__c
+   - AI_Recommended_Actions__c
+6. Create Task for AE with action items
+7. Send Slack notification if High Risk
+                </div>
+
+                <h3>10.2 Weekly Account Review</h3>
+
+                <div class="diagram">
+<strong>Trigger:</strong> Scheduled (Every Monday 6 AM)
+
+<strong>Flow:</strong>
+1. Query all active accounts with renewal in next 90 days
+2. For each account:
+   - Create "Renewal Health Check" analysis
+   - Enqueue with template
+3. Poll results throughout morning
+4. By 9 AM: Send digest to Account Managers
+5. Flag critical accounts in Chatter
+                </div>
+
+                <h3>10.3 Pre-QBR Preparation</h3>
+
+                <div class="diagram">
+<strong>Trigger:</strong> Manual button on Account
+
+<strong>Flow:</strong>
+1. AE clicks "Prepare QBR Brief"
+2. Create "Account Brief" analysis
+3. Show progress spinner on page
+4. Auto-refresh when complete
+5. Display formatted brief
+6. Option to export as PDF
+7. Option to share via email
+                </div>
+
+                <h3>10.4 Deal Desk Review</h3>
+
+                <div class="diagram">
+<strong>Trigger:</strong> Opportunity Amount > $100K AND Stage = "Proposal"
+
+<strong>Flow:</strong>
+1. Opportunity meets criteria
+2. Create "Competitive Intelligence" analysis
+3. Include: Account context + Opp details + Recent activities
+4. Upon completion:
+   - Post to Deal Desk Slack channel
+   - Create approval request
+   - Attach analysis to approval
+                </div>
+            </section>
+
+            <!-- Appendix -->
+            <section id="appendix" class="section">
+                <h2>Appendix: Quick Reference</h2>
+
+                <h3>A. API Endpoints</h3>
+
+                <pre><code>Base URL: [Your EndGame MCP Server URL]
+
+POST /mcp
+Headers:
+  Authorization: Bearer {API_TOKEN}
+  Content-Type: application/json
+
+Tools:
+- prompt_with_template
+- queue_thread_message  
+- queue_status
+- prompt_endgame</code></pre>
+
+                <h3>B. Template ID Locations</h3>
+
+                <div class="info-box">
+                    <p><strong>Once UI update is live:</strong></p>
+                    <ol>
+                        <li>Navigate to EndGame Settings → Templates</li>
+                        <li>Find your template card</li>
+                        <li>Click "Copy ID" button</li>
+                        <li>Paste into Salesforce Template_ID__c field</li>
+                    </ol>
+                </div>
+
+                <h3>C. Field Mapping</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EndGame Output</th>
+                            <th>Salesforce Field</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Health Score (0-100)</td>
+                            <td>AI_Health_Score__c</td>
+                        </tr>
+                        <tr>
+                            <td>Win Probability (%)</td>
+                            <td>AI_Win_Probability__c</td>
+                        </tr>
+                        <tr>
+                            <td>Risk Level (L/M/H/C)</td>
+                            <td>AI_Risk_Level__c</td>
+                        </tr>
+                        <tr>
+                            <td>Full Analysis</td>
+                            <td>Raw_Response__c</td>
+                        </tr>
+                        <tr>
+                            <td>Executive Summary</td>
+                            <td>AI_Summary__c</td>
+                        </tr>
+                        <tr>
+                            <td>Risk Factors</td>
+                            <td>AI_Risk_Factors__c</td>
+                        </tr>
+                        <tr>
+                            <td>Action Items</td>
+                            <td>AI_Recommended_Actions__c</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>D. Version History</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Version</th>
+                            <th>Date</th>
+                            <th>Changes</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.0</td>
+                            <td>TBD</td>
+                            <td>Initial implementation</td>
+                            <td>[Your Name]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Footer -->
+            <div class="section" style="border-top: 2px solid var(--border-color); padding-top: 2rem; margin-top: 4rem;">
+                <h3>Next Steps</h3>
+                <ol>
+                    <li>Review this document with your Salesforce Admin</li>
+                    <li>Obtain EndGame Template IDs once UI is updated</li>
+                    <li>Deploy to Dev Sandbox and begin testing</li>
+                    <li>Schedule training sessions for pilot users</li>
+                    <li>Set up monitoring dashboard</li>
+                    <li>Begin pilot with 5-10 users</li>
+                </ol>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <strong>Questions?</strong> Contact your implementation team or EndGame support.
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -295,7 +295,7 @@
             <!-- Executive Summary -->
             <div class="executive-summary">
                 <h2 class="section-title">Executive Summary</h2>
-                <p>Sprint 20 delivered 4 fully completed strategic initiatives plus advanced 3 major projects to completion pending final stakeholder review and deployment, demonstrating strong progress across revenue-driving initiatives. Judist Crews completed Inside Sales Rep field automation (ensuring compensation calculation integrity), Own Company backup integrity verification (business continuity protection), and advanced three high-priority projects to completion: FasTrak Renewal expansion through QA validation (moving to UAT and production deployment in Sprint 21), Ironclad field mapping configuration complete (awaiting ESA date source confirmation and integration testing), and Legal Readiness Indicators POC delivered (pending Rebecca's review for LWC finalization). Austin Johnsey completed Sales Stage Process Alignment discovery and Gong evaluation deck delivery to RevOps leadership while advancing Slack-Salesforce bi-directional integration and EndGame MCP API POC. Earl Wells continues Account Type automation affecting 1,251 accounts essential for territory management and FY26 forecasting. Operations maintained excellence through critical Q3 closeout support including Quota field automation fixes affecting fiscal quarter compensation accuracy, GE Vernova/GE Digital account merge resolution, .edu routing logic deployment for SLGE team, role hierarchy updates, sandbox provisioning for cross-functional projects, forecast configuration, and rapid resolution of 40+ help channel requests during end-of-quarter operations.</p>
+                <p>Sprint 20 delivered 6 fully completed strategic initiatives plus advanced 2 major projects to final review stages, while progressing a critical Salesforce Agentforce partnership representing BetterUp's first AI Agent development. Judist Crews and Austin Johnsey led daily engagement with Salesforce Professional Services team completing Week 2 deliverables of Value Prompter AI Agent including sophisticated state-based UI component with custom LWC, EndGame workflow integration, and dynamic action buttons based on data completeness. Judist Crews completed FasTrak Renewal expansion development and QA validation (moving to UAT, enablement, and deployment in Sprint 21), CIQ field mapping for commission automation (enabling earlier sales team visibility into earnings), Inside Sales Rep field automation (ensuring compensation calculation integrity), Own Company backup integrity verification (business continuity protection), and delivered two POCs to completion: Legal Readiness Indicators POC (pending Rebecca's Monday review for LWC finalization) and Ironclad field mapping configuration (awaiting ESA date source confirmation for integration testing). Austin Johnsey completed Sales Stage Process Alignment discovery and Gong evaluation deck delivery to RevOps leadership while advancing Slack-Salesforce bi-directional integration and EndGame MCP API POC. Earl Wells continues Account Type automation affecting 1,251 accounts essential for territory management and FY26 forecasting. Operations maintained excellence through critical Q3 closeout support including Quota field automation fixes affecting fiscal quarter compensation accuracy, GE Vernova/GE Digital account merge resolution, .edu routing logic deployment for SLGE team, role hierarchy updates, sandbox provisioning for cross-functional projects, forecast configuration, and rapid resolution of 40+ help channel requests during end-of-quarter operations.</p>
             </div>
             
             <!-- Major Projects Section -->
@@ -328,7 +328,31 @@
                     </div>
                 </div>
 
-                <h3 class="owner-section">Judist Crews - 2 Completed + 3 Advanced to Final Stages</h3>
+                <h3 class="owner-section">Judist Crews - 3 Completed + 3 Advanced to Final Stages</h3>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1213: CIQ ↔ Salesforce Field Mapping for Commission Sync</h3>
+                        <span class="status-badge status-green">Complete</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Finance Integration:</strong> Completed comprehensive field mapping documentation for Captive IQ integration enabling automated commission calculations and earlier visibility into commission statements for sales team. Delivered detailed spreadsheet with API names, field labels, object references, and field types for all Opportunity and Account fields supporting CCG partner team's data sync implementation. Provided technical consultation on multi-currency approach (USD, CAD, EUR, GBP) recommending Opportunity Currency field mapping over UI-only converted fields to leverage CIQ's dynamic currency conversion capabilities. Participated in Nov 10 technical sync meeting with CCG team (Keith, Doug) providing testing strategy guidance and field type documentation reducing manual conversion errors. Supports Finance strategic goal of enabling sales reps to view preliminary commission calculations as deals close rather than waiting until month-end processing.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value">Mapping Complete</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">High</span>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="project-card">
                     <div class="project-header">
@@ -336,7 +360,7 @@
                         <span class="status-badge status-yellow">QA Complete - UAT Next</span>
                     </div>
                     <div class="project-description">
-                        <strong>Revenue Impact:</strong> Completed QA testing and validation of FasTrak expansion to support renewal opportunities under $250K with Lead products. Built and tested custom Lightning Web Component guiding users through FasTrak eligibility requirements. Following Ashley's QA review, resolved logic discrepancies in eligibility checker including corrected Average Customer Discount thresholds (up to 3% for 1→2 year, up to 6% for 1→3 year renewals), updated LWC styling and trend hints, and revised formula fields for proper eligibility behavior across multiple renewal configurations. QA validation confirmed correct functionality for seat/ACV trends, product/term hygiene, and eligibility scenarios in Full Sandbox. <strong>Next Steps (Sprint 21):</strong> Move to UAT for peer review and packaging, create production deployment ticket including enablement materials and timing coordination with Ashley for field event alignment.
+                        <strong>Revenue Impact:</strong> Completed QA testing and validation of FasTrak expansion to support renewal opportunities under $250K with Lead and Grow products. Built and tested custom Lightning Web Component guiding users through FasTrak eligibility requirements. Following Ashley's QA review, resolved logic discrepancies in eligibility checker including corrected Average Customer Discount thresholds (up to 3% for 1→2 year, up to 6% for 1→3 year renewals), updated LWC styling and trend hints, and revised formula fields for proper eligibility behavior across multiple renewal configurations. QA validation confirmed correct functionality for seat/ACV trends, product/term hygiene, and eligibility scenarios in Full Sandbox. <strong>Next Steps (Sprint 21):</strong> Move to UAT for peer review and packaging, create production deployment ticket including enablement materials and timing coordination with Ashley for field event alignment.
                     </div>
                     <div class="project-details">
                         <div class="detail-item">
@@ -706,8 +730,8 @@
                         <div class="ktbr-description">Provisioned Full Sandbox access for Patrick Ennis and multiple IPM team members (Bhumika Agarwal, Ben David J, Rick Raya) supporting cross-functional projects between CSO and IPM per Anne Kaluza and Samantha Slater's urgent request for training readiness.</div>
                     </div>
                     <div class="ktbr-item">
-                        <div class="ktbr-title">CIQ Integration Support</div>
-                        <div class="ktbr-description">Provided detailed field mapping documentation for Kelly Reich including API names, object references, and multi-currency guidance for CIQ-Salesforce sync. Consulted on converted currency field challenges and recommended approach for handling exchange rate calculations in integration.</div>
+                        <div class="ktbr-title">CIQ Field Mapping & Integration Support (EAGTM-1213)</div>
+                        <div class="ktbr-description">Completed comprehensive field mapping documentation for Captive IQ integration enabling automated commission calculations. Delivered spreadsheet with API names, field labels, object references, and field types for all requested Opportunity and Account fields. Provided technical consultation on multi-currency approach (USD, CAD, EUR, GBP) recommending Opportunity Currency field mapping over converted fields to leverage CIQ's dynamic conversion capabilities. Participated in Nov 10 technical sync with CCG partner team providing testing strategy guidance. Supports Finance goal of enabling sales team to view preliminary commission calculations as deals close rather than waiting for month-end processing.</div>
                     </div>
                     <div class="ktbr-item">
                         <div class="ktbr-title">Field Visibility & Layout Updates</div>
@@ -741,11 +765,11 @@
                         <div class="metric-label">Active Strategic Initiatives</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-value">4</div>
+                        <div class="metric-value">6</div>
                         <div class="metric-label">Projects Fully Complete</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-value">3</div>
+                        <div class="metric-value">2</div>
                         <div class="metric-label">Projects at Final Review Stage</div>
                     </div>
                     <div class="metric-card">
@@ -764,13 +788,15 @@
                 <h2 class="section-title">Sprint 21 Priorities</h2>
                 <div class="next-sprint">
                     <ul>
-                        <li>Complete FasTrak Renewal UAT and peer review, create production deployment ticket with enablement materials and coordinate timing with Ashley for field event</li>
-                        <li>Finalize Ironclad ESA Agreement Date field mapping once source confirmed and proceed with integration testing to validate data sync</li>
+                        <li>Move FasTrak Renewal to UAT for peer review and packaging, create production deployment ticket with enablement materials, coordinate timing with Ashley for field event</li>
                         <li>Review Legal Readiness Indicators POC with Rebecca on Monday, iterate based on feedback and finalize LWC implementation</li>
+                        <li>Finalize Ironclad ESA Agreement Date field mapping once source confirmed and proceed with integration testing to validate data sync</li>
                         <li>Complete UTM-to-Campaign Member Flow POC testing in Full Sandbox and evaluate against HubSpot Selective Sync approach</li>
                         <li>Advance simplified Slack page layouts for Opportunity object supporting bi-directional integration</li>
                         <li>Complete Account Type automation logic deployment affecting 1,251 accounts for FY26 territory planning</li>
-                        <li>Continue EndGame MCP API POC development and Sales Stage alignment implementation</li>
+                        <li>Continue Salesforce Agentforce Value Prompter development - Week 3: AI parsing logic automation with GenAI, Week 4: technical handover and documentation</li>
+                        <li>Participate in MCP integration meeting Tuesday with Salesforce team and Lindsay to explore advanced use cases</li>
+                        <li>Continue EndGame MCP API POC development and Slack-Salesforce integration implementation</li>
                         <li>Support Rox Partnership Proposal pilot program and event workflow development per Austin's leadership engagement</li>
                         <li>Maintain KTBR excellence: continued help channel responsiveness, user support, sandbox provisioning, system maintenance, and rapid resolution of operational issues</li>
                     </ul>

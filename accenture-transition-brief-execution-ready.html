@@ -1,0 +1,1282 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Accenture sales transition brief template guide</title>
+    <style>
+    /* PDF Export Styles - Light Theme */
+/* Converted from Chakra UI dark theme components to light theme for PDFs */
+
+/* Base Typography */
+body {
+  background-color: #ffffff;
+  color: #1a202c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Headings */
+h1 {
+  color: #1a202c;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+h1:first-of-type {
+  margin-top: 0;
+}
+
+h2 {
+  color: #1a202c;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+h3 {
+  color: #1a202c;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+h4 {
+  color: #1a202c;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+h5 {
+  color: #1a202c;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+h6 {
+  color: #1a202c;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+/* Paragraphs */
+p {
+  color: #2d3748;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Links */
+a {
+  border-bottom: 1px solid #ddd6fe;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  border-bottom-color: #2563eb;
+}
+
+/* Strong/Bold */
+strong, b {
+  color: #1a202c;
+  font-weight: 600;
+}
+
+/* Blockquotes */
+blockquote {
+  background-color: #f9fafb;
+  border-left: 4px solid #d1d5db;
+  border-radius: 0 0.25rem 0.25rem 0;
+  color: #374151;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.65;
+  margin: 1.5rem 0;
+  padding: 0.5rem 1.5rem;
+  position: relative;
+}
+
+blockquote > p {
+  font-style: normal;
+  margin: 0.5rem 0;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Lists */
+ul, ol {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  margin-left: 0;
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+/* Task List Items (GitHub Flavored Markdown) */
+li.task-list-item {
+  align-items: flex-start;
+  display: flex;
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.375rem;
+  margin-top: 0.125rem;
+}
+
+/* Tables */
+table {
+  border: 1px solid #e5e7eb;
+  border-collapse: collapse;
+  color: #374151;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  width: auto;
+  min-width: 100%;
+}
+
+th {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  padding: 0.25rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+td {
+  background-color: #ffffff;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  line-height: 1.4;
+  padding: 0.25rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Zebra striping for better readability */
+tr:nth-child(even) td {
+  background-color: #f9fafb;
+}
+
+/* Code blocks */
+code {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  color: #1f2937;
+  font-family: Courier, monospace;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  padding: 0.125rem 0.375rem;
+}
+
+pre {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color: #1f2937;
+  font-family: Courier, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  /* Enable text wrapping in pre blocks */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: visible;
+}
+
+pre code {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: inherit;
+  padding: 0;
+  font-weight: 400;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.code-block-container {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  margin-top: 16px;
+  overflow: hidden;
+  padding: 24px;
+  width: 100%;
+}
+
+.code-line {
+  border: none;
+  background: #f8f9fa;
+  box-sizing: border-box;
+  color: #1f2937;
+  display: block;
+  font-family: Courier, monospace;
+  font-size: 13px;
+  line-height: 1.25rem;
+  margin: 0;
+  overflow-wrap: break-word;
+  padding: 0 1.5rem;
+  white-space: pre;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+/* Code highlighting wrapper */
+.codehilite {
+  margin: 1rem 0 1.5rem 0;
+}
+
+.codehilite pre {
+  margin: 0;
+}
+
+/* Inline styles */
+em {
+  font-style: italic;
+}
+
+/* Images */
+img {
+  display: block;
+  height: auto;
+  margin: 1rem 0;
+  max-width: 100%;
+}
+
+/* PDF page setup */
+@page {
+  margin: 0.5in;
+  size: letter;
+  /* Other options:
+     size: letter landscape;  (11in x 8.5in)
+     size: legal landscape;   (14in x 8.5in)
+     size: A3;                (11.69in x 16.54in)
+     size: 11in 17in;
+  */
+}
+
+/* xhtml2pdf-specific properties and overrides */
+@media pdf {
+  body {
+    font-size: 14px !important;
+  }
+
+  h1, h2, h3 {
+    -pdf-keep-with-next: true;
+  }
+
+  code {
+    -pdf-word-wrap: CJK;
+  }
+  
+  pre {
+    -pdf-word-wrap: CJK;
+  }
+  
+  .code-block-container {
+    -pdf-background-color: #f8f9fa;
+    -pdf-word-wrap: CJK;
+  }
+  
+  .code-line {
+    -pdf-word-wrap: CJK;
+  }
+  
+  blockquote {
+    -pdf-background-color: #f9fafb;
+  }
+  
+  table {
+    -pdf-keep-in-frame-mode: shrink;
+    -pdf-keep-with-next: true;
+  }
+
+  ul ul {
+    list-style-type: circle !important;
+  }
+
+  ol ol {
+    list-style-type: alpha !important;
+  }
+
+  ul ul, ul ol, ol ul, ol ol {
+    margin-left: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+
+  li {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  li li {
+    margin-left: 1rem !important;
+  }
+}
+
+/* Print-specific optimizations */
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    padding: 0;
+  }
+  
+  /* Avoid page breaks inside these elements */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  p, blockquote, pre {
+    page-break-inside: avoid;
+  }
+  
+  /* Tables */
+  table {
+    page-break-inside: auto;
+  }
+  
+  tr {
+    page-break-after: auto;
+    page-break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  /* Keep list items together */
+  li {
+    page-break-inside: avoid;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <h1>Accenture transition brief (execution‑ready)</h1>
+<h2>Executive Summary</h2>
+<p>Current posture: Accenture LLP remains a high‑engagement, multi‑program customer with near‑term monthly enrollments, active renewals, and a strategically important proposed multi‑year ELA/HTP construct ($13M TCV, $6.5M Y1) that would consolidate fragmented spend; however, first‑half FY25 saw &gt;$6M churn and current execution is gated by MDM remediation and paper‑process throughput. [1] </p>
+<p>What must happen next: lock the November enrollment order/PR, drive MDM remediation by mid‑December, deliver the Workday integration one‑pager and QA plan, and land procurement/CHRO alignment to move the ELA/HTP across the finish line in the first week of December, then brief the incoming CHRO on 12-19-2025 to expand executive coverage. [2]  [3]  [4]  [1] </p>
+<h3>Top 5 priorities (this week → next 30/90 days)</h3>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Owner</th>
+<th>Due Date</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Finalize November enrollment order form and trigger PR submission</td>
+<td>Incoming CSM</td>
+<td>11-21-2025</td>
+<td>Unblocks immediate revenue intake; buyer explicitly waiting on OF to submit PR. [2]</td>
+</tr>
+<tr>
+<td>Drive MDM remediation to “done,” not piloted; confirm earlier target (12/10–12/15)</td>
+<td>Duke Daehling - GAM</td>
+<td>12-15-2025</td>
+<td>InfoSec gate for programs; procurement expects closure before holidays. [3]  [5]</td>
+</tr>
+<tr>
+<td>Land ELA/HTP paper process (min spend, routing) with Procurement</td>
+<td>Incoming AE</td>
+<td>12-06-2025</td>
+<td>Moves $13M multi‑year across the line per procurement timing. [1]</td>
+</tr>
+<tr>
+<td>Deliver Workday integration one‑pager and joint QA plan</td>
+<td>Kristin Kerlin</td>
+<td>11-26-2025</td>
+<td>Reduces admin pain; next “big rock” for scale‑ready ops. [4]</td>
+</tr>
+<tr>
+<td>Prepare CHRO briefing for 12/19 and exec sponsor outreach plan</td>
+<td>Alexi Robichaux</td>
+<td>12-12-2025</td>
+<td>Expands power coverage to Global CHRO ahead of FY26 execution. [1]</td>
+</tr>
+</tbody></table><h2>Account Situation Overview</h2>
+<p>Accenture purchases centrally (HR) and via decentralized business programs; H1 FY25 churn (&gt; $6M) created risk, and the recovery path centers on a consolidated ELA/HTP ($13M TCV, $6.5M Y1) to stabilize value and simplify admin while MDM and paper process remain gating dependencies. [1] </p>
+<h2>Decision Timeline</h2>
+<table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Owner</th>
+<th>Target Date</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>November enrollment: send updated OF and trigger PR</td>
+<td>Incoming CSM</td>
+<td>11-21-2025</td>
+<td>Buyer will submit PR upon receipt of OF. [2]</td>
+</tr>
+<tr>
+<td>ELA/HTP: procurement sign‑off (min spend)</td>
+<td>Incoming AE</td>
+<td>12-06-2025</td>
+<td>Procurement targeting first week of December for contract completion. [1]</td>
+</tr>
+<tr>
+<td>MDM remediation: complete and confirm</td>
+<td>Duke Daehling - GAM</td>
+<td>12-15-2025</td>
+<td>Extension exists to 12/31; buyer requested earlier closure (12/10–12/15). [3]  [5]</td>
+</tr>
+<tr>
+<td>Workday integration one‑pager + QA plan</td>
+<td>Kristin Kerlin</td>
+<td>11-26-2025</td>
+<td>Identified as next “big rock”; enables scale. [4]</td>
+</tr>
+<tr>
+<td>CHRO briefing</td>
+<td>Alexi Robichaux</td>
+<td>12-19-2025</td>
+<td>Kate Clifford now Global CHRO; high‑stakes coverage. [1]</td>
+</tr>
+</tbody></table><h2>Strategic Progress to Date</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Outcome</th>
+<th>Proof/Source</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI Coaching launched</td>
+<td>Early adoption: 23 interactions (16 chats, 7 activities) in first update</td>
+<td>Weekly Flagships Sync</td>
+<td>11-12-2025 [4]</td>
+</tr>
+<tr>
+<td>MDLD license provisioning fix</td>
+<td>150 licenses visible; all with full 6 months</td>
+<td>Email confirmation</td>
+<td>11-12-2025 [6]</td>
+</tr>
+<tr>
+<td>Landing page prototype shared</td>
+<td>Link provided for stakeholder review</td>
+<td>Email to Accenture leads</td>
+<td>11-12-2025 [7]</td>
+</tr>
+<tr>
+<td>Comms toolkit refresh (AI)</td>
+<td>Toolkit link committed for same‑day send</td>
+<td>Weekly Flagships Sync</td>
+<td>11-05-2025 [5]</td>
+</tr>
+<tr>
+<td>MDM remediation plan</td>
+<td>Extension to 12/31 granted; buyer asked for earlier closure</td>
+<td>Buyer email + weekly sync</td>
+<td>10-28-2025 [3]  [5]</td>
+</tr>
+</tbody></table><h2>Strategic Needs &amp; Risks</h2>
+<table>
+<thead>
+<tr>
+<th>Need/Risk</th>
+<th>Severity</th>
+<th>Root Cause</th>
+<th>Trigger</th>
+<th>Mitigation/Owner</th>
+<th>Next Checkpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Close ELA/HTP in early December</td>
+<td>High</td>
+<td>Paper process needs procurement alignment on min spend</td>
+<td>Procurement timing window</td>
+<td>Incoming AE to shepherd procurement package and redlines; target 12-06-2025</td>
+<td>11-25-2025</td>
+</tr>
+<tr>
+<td>MDM remediation to “done”</td>
+<td>High</td>
+<td>InfoSec compliance gate</td>
+<td>12/31 extension; buyer wants 12/10–12/15</td>
+<td>Duke to escalate and confirm completion</td>
+<td>12-10-2025</td>
+</tr>
+<tr>
+<td>Workday integration enablement</td>
+<td>Medium</td>
+<td>Admin burden on invites/provisioning</td>
+<td>Stakeholder “big rock”</td>
+<td>Kristin to ship one‑pager + QA plan</td>
+<td>11-26-2025</td>
+</tr>
+<tr>
+<td>Utilization/ROI proof for execs</td>
+<td>Medium</td>
+<td>Fragmented programs; outcomes scattered</td>
+<td>CHRO briefing 12/19</td>
+<td>Incoming CSM to compile single outcomes brief (QBR‑style)</td>
+<td>12-12-2025</td>
+</tr>
+<tr>
+<td>Churn risk in decentralized units</td>
+<td>Medium</td>
+<td>Operating model changes and fragmentation</td>
+<td>H1 FY25 churn &gt; $6M</td>
+<td>Consolidate under ELA; executive sponsorship expansion</td>
+<td>12-19-2025 [1]</td>
+</tr>
+</tbody></table><h2>Key Stakeholders &amp; Advocates</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Influence</th>
+<th>Relationship Strength</th>
+<th>Sentiment</th>
+<th>Last Interaction</th>
+<th>Next Step/Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caroline Dey</td>
+<td>GLD Program Lead</td>
+<td>High</td>
+<td>Strong</td>
+<td>Positive</td>
+<td>11-12-2025</td>
+<td>Send final comms toolkit + capture landing page feedback; Incoming CSM, 11-22-2025. [5]</td>
+</tr>
+<tr>
+<td>Livindra Bernard</td>
+<td>Specialist (program ops)</td>
+<td>Medium</td>
+<td>Strong</td>
+<td>Positive</td>
+<td>11-14-2025</td>
+<td>Confirm OF receipt and PR submission for Nov; Incoming CSM, 11-21-2025. [8]  [2]</td>
+</tr>
+<tr>
+<td>Jennifer Guzzarde</td>
+<td>GLD Assoc. Manager</td>
+<td>Medium</td>
+<td>Strong</td>
+<td>Positive</td>
+<td>11-12-2025</td>
+<td>Share AI comms toolkit link and distribution plan; Incoming CSM, 11-22-2025. [5]</td>
+</tr>
+<tr>
+<td>Teresa Latuszek</td>
+<td>Business Interlock Sr Analyst</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Neutral</td>
+<td>11-12-2025</td>
+<td>Include in Workday one‑pager review; Kristin, 11-26-2025. [4]</td>
+</tr>
+<tr>
+<td>Kevin Simurda</td>
+<td>Global Category Lead (Procurement)</td>
+<td>High</td>
+<td>Medium</td>
+<td>Neutral</td>
+<td>11-13-2025</td>
+<td>Align min‑spend, route for early‑Dec signature; Incoming AE, 12-06-2025. [1]</td>
+</tr>
+<tr>
+<td>Alejandra Ferraro</td>
+<td>Chief Talent Officer</td>
+<td>High</td>
+<td>Medium</td>
+<td>Positive</td>
+<td>11-05-2025</td>
+<td>Confirm HTP scope alignment and CHRO briefing inputs; Incoming AE, 12-05-2025. [1]</td>
+</tr>
+<tr>
+<td>Kristin Kerlin</td>
+<td>BetterUp Implementation PM</td>
+<td>Medium</td>
+<td>Strong</td>
+<td>Positive</td>
+<td>11-12-2025</td>
+<td>Finalize Workday one‑pager and QA plan; 11-26-2025. [4]</td>
+</tr>
+<tr>
+<td>Duke Daehling - GAM</td>
+<td>BetterUp GAM</td>
+<td>High</td>
+<td>Strong</td>
+<td>Positive</td>
+<td>11-14-2025</td>
+<td>Escalate MDM and confirm earlier closure; 12-10-2025. [5]</td>
+</tr>
+</tbody></table><h2>Planned Next Steps</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Objective</th>
+<th>Owner</th>
+<th>Date</th>
+<th>Dependency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Send updated OF and confirm PR submission (Nov enrollment)</td>
+<td>Recognize revenue for November cohort</td>
+<td>Incoming CSM</td>
+<td>11-21-2025</td>
+<td>Buyer processing</td>
+</tr>
+<tr>
+<td>Deliver Workday one‑pager + QA plan</td>
+<td>Reduce admin burden and enable scale</td>
+<td>Kristin Kerlin</td>
+<td>11-26-2025</td>
+<td>Stakeholder review</td>
+</tr>
+<tr>
+<td>Escalate MDM to completion</td>
+<td>Remove InfoSec gate to scale/paper</td>
+<td>Duke Daehling - GAM</td>
+<td>12-10-2025</td>
+<td>GRC coordination</td>
+</tr>
+<tr>
+<td>Align ELA/HTP min spend and route for signature</td>
+<td>Close strategic multi‑year</td>
+<td>Incoming AE</td>
+<td>12-06-2025</td>
+<td>Procurement availability</td>
+</tr>
+<tr>
+<td>Prepare CHRO briefing materials</td>
+<td>Expand executive sponsorship</td>
+<td>Alexi Robichaux</td>
+<td>12-12-2025</td>
+<td>Content inputs</td>
+</tr>
+</tbody></table><h2>ValueSelling Readiness (RYG)</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Rating (Green/Yellow/Red)</th>
+<th>Insight</th>
+<th>Next Action/Owner/Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compelling business problem defined</td>
+<td>Green</td>
+<td>Leadership aligned on core problem; non‑BetterUp approaches insufficient. [1]</td>
+<td>Package a one‑page business problem statement for CHRO brief; Incoming AE; 12-05-2025.</td>
+</tr>
+<tr>
+<td>Power sponsor(s) engaged</td>
+<td>Yellow</td>
+<td>CTO (Ale) active; Global CHRO briefing set 12/19. [1]</td>
+<td>Confirm CHRO objectives and secure executive quote; Alexi; 12-12-2025.</td>
+</tr>
+<tr>
+<td>Value quantified/ROI</td>
+<td>Yellow</td>
+<td>Utilization signals strong; consolidated ELA value case drafted; ROI proof not centralized.</td>
+<td>Build outcomes/QBR packet with adoption/activation and program results; Incoming CSM; 12-12-2025.</td>
+</tr>
+<tr>
+<td>Decision process mapped</td>
+<td>Yellow</td>
+<td>Procurement wants completion first week Dec; legal/MDM gating known. [1]  [3]</td>
+<td>Publish paper process checklist and owners; Incoming AE; 11-25-2025.</td>
+</tr>
+<tr>
+<td>Paper process readiness</td>
+<td>Yellow</td>
+<td>MDM remediation extension to 12/31; buyer requested earlier. [3]</td>
+<td>Confirm earlier completion; Duke; 12-10-2025.</td>
+</tr>
+<tr>
+<td>Competitive landscape</td>
+<td>Yellow</td>
+<td>Other PS firms in orbit; buyer alignment favors outcomes+AI fit. [1]</td>
+<td>Build competitive one‑pager vs. Deloitte/EY/IBM; Incoming AE; 12-05-2025.</td>
+</tr>
+</tbody></table><h2>H2/H1 Strategy (Objectives and LOEs)</h2>
+<table>
+<thead>
+<tr>
+<th>Objective</th>
+<th>LOE</th>
+<th>Description</th>
+<th>Evidence</th>
+<th>Owner</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Close ELA/HTP in early December</td>
+<td>High</td>
+<td>Consolidate fragmented spend into multi‑year $13M program with $6.5M Y1</td>
+<td>Strategy doc; Procurement timing</td>
+<td>Incoming AE</td>
+<td>12-06-2025 [1]</td>
+</tr>
+<tr>
+<td>Remove InfoSec gates (MDM)</td>
+<td>Medium</td>
+<td>Complete remediation ahead of holidays to de‑risk paper and launches</td>
+<td>Buyer extension + earlier ask</td>
+<td>Duke</td>
+<td>12-15-2025 [3]</td>
+</tr>
+<tr>
+<td>Workday integration enablement</td>
+<td>Medium</td>
+<td>One‑pager + QA to reduce admin burden and scale invites/provisioning</td>
+<td>Weekly sync ask</td>
+<td>Kristin</td>
+<td>11-26-2025 [4]</td>
+</tr>
+<tr>
+<td>Executive coverage expansion</td>
+<td>Medium</td>
+<td>CHRO brief on 12/19 and ongoing CXO pathway</td>
+<td>Strategy doc</td>
+<td>Alexi</td>
+<td>12-19-2025 [1]</td>
+</tr>
+</tbody></table><h2>Open Opportunities and Pipeline</h2>
+<table>
+<thead>
+<tr>
+<th>Opp Name</th>
+<th>Stage</th>
+<th>Amount</th>
+<th>Close Date</th>
+<th>Forecast</th>
+<th>Next Step (one sentence)</th>
+<th>Risks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accenture - 2026-2027 Lead, Lead Exec, Manage, Grow, and “Boost” (Swappable)</td>
+<td>4 - Proposal Alignment</td>
+<td>10608220</td>
+<td>12-16-2025</td>
+<td>Commit</td>
+<td>Align min spend with Procurement and circulate final paper for early‑Dec routing (Incoming AE, 12-06-2025).</td>
+<td>Paper process timing; executive coverage</td>
+</tr>
+<tr>
+<td>Accenture LLP Nov Monthly Enrollment N=21</td>
+<td>5 - Contracting</td>
+<td>48300</td>
+<td>11-17-2025</td>
+<td>Commit</td>
+<td>Send updated OF and confirm PR submission (Incoming CSM, 11-21-2025). [2]</td>
+<td>OF delay stalls PR</td>
+</tr>
+<tr>
+<td>Accenture LLP- Nordics Sr Mgr Program</td>
+<td>3 - Value Confirmation</td>
+<td>275000</td>
+<td>11-14-2025</td>
+<td>Commit</td>
+<td>Share follow‑up data and renewal path to Dace (Incoming CSM, 11-22-2025).</td>
+<td>Renewal risk; timing slippage</td>
+</tr>
+<tr>
+<td>Renewal: Dec Monthly Enrollment</td>
+<td>1 - Initial Qualification</td>
+<td>62100</td>
+<td>12-07-2025</td>
+<td>Pipeline</td>
+<td>Pre‑align PR and OF to avoid holiday delays (Incoming CSM, 12-02-2025).</td>
+<td>Holiday bottlenecks</td>
+</tr>
+<tr>
+<td>Renewal: India Tech MDs</td>
+<td>1 - Initial Qualification</td>
+<td>55000</td>
+<td>11-11-2025</td>
+<td>Pipeline</td>
+<td>Validate cohort and route OF (Incoming CSM, 11-22-2025).</td>
+<td>Admin delay</td>
+</tr>
+<tr>
+<td>Renewal: Project Exceller</td>
+<td>1 - Initial Qualification</td>
+<td>57200</td>
+<td>11-10-2025</td>
+<td>Pipeline</td>
+<td>Confirm spend and route OF (Incoming CSM, 11-22-2025).</td>
+<td>Admin delay</td>
+</tr>
+</tbody></table><h2>Commercials and Renewals</h2>
+<table>
+<thead>
+<tr>
+<th>Contract/Plan</th>
+<th>Start</th>
+<th>End</th>
+<th>Renewal Date</th>
+<th>Term</th>
+<th>Amount</th>
+<th>Products</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposed ELA/HTP (multi‑year)</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>36 months</td>
+<td>6500000 (Y1)</td>
+<td>Multi‑product</td>
+<td>Strategy anchor to consolidate fragmented programs. [1]</td>
+</tr>
+<tr>
+<td>Nov 2025 Monthly Enrollment</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>11-25-2025</td>
+<td>1 month</td>
+<td>48300</td>
+<td>Lead/Exec (as scoped)</td>
+<td>PR follows OF receipt. [2]</td>
+</tr>
+<tr>
+<td>MDLD Fall ’25 (150 seats)</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>11-04-2025</td>
+<td>6 months</td>
+<td>Unknown</td>
+<td>Lead</td>
+<td>150 licenses visible with full 6 months; audit accounted for 100% utilization. [6]  [9]</td>
+</tr>
+<tr>
+<td>UKIA LCA (signature sequence)</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Care/Lead (as scoped)</td>
+<td>Pending signature routing per Dipak/Sarah Binder. [10]</td>
+</tr>
+</tbody></table><p>Unknowns: Start/End/Amount for several lines. Actions: </p>
+<ul>
+<li>Pull executed order forms and CLIs from SFDC/DocuSign to populate Start/End and financials; Incoming CSM; 11-25-2025.</li>
+<li>Confirm current SKU mix per cohort with Procurement; Incoming AE; 11-27-2025.</li>
+</ul>
+<h2>Product Usage and Outcomes</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Current</th>
+<th>30‑Day Trend</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>License Utilization (%)</td>
+<td>100</td>
+<td>Stable</td>
+<td>Audit accounted for 100% of licenses. [9]</td>
+</tr>
+<tr>
+<td>Activation Rate (%)</td>
+<td>38</td>
+<td>Unknown</td>
+<td>56,345 invited; 21,177 activated (38%). [11]</td>
+</tr>
+<tr>
+<td>MAU</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Action: request MAU from product analytics; Incoming CSM; 11-25-2025.</td>
+</tr>
+<tr>
+<td>NPS</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Action: pull latest NPS by track from CX; Incoming CSM; 12-02-2025.</td>
+</tr>
+<tr>
+<td>Key Outcomes</td>
+<td>Early AI Coach usage: 23 interactions</td>
+<td>Increasing</td>
+<td>16 chats, 7 activities noted post‑launch. [4]</td>
+</tr>
+</tbody></table><h2>Projects, Implementations, Support</h2>
+<table>
+<thead>
+<tr>
+<th>Workstream</th>
+<th>Owner</th>
+<th>Status</th>
+<th>Last Milestone</th>
+<th>Next Milestone</th>
+<th>Risk/Blocker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MDM Remediation</td>
+<td>Duke</td>
+<td>In progress</td>
+<td>Extension to 12/31 granted</td>
+<td>Confirm earlier finish (12/10–12/15)</td>
+<td>Holiday coverage; internal GRC pacing [3]  [5]</td>
+</tr>
+<tr>
+<td>Workday Integration (one‑pager + QA)</td>
+<td>Kristin</td>
+<td>Planned</td>
+<td>Stakeholder alignment on “big rock”</td>
+<td>Share one‑pager and QA plan (11-26-2025)</td>
+<td>Competing priorities [4]</td>
+</tr>
+<tr>
+<td>Landing Page enablement</td>
+<td>Incoming CSM</td>
+<td>In progress</td>
+<td>Prototype link shared to GLD</td>
+<td>Consolidate feedback and finalize</td>
+<td>Content approvals [7]</td>
+</tr>
+<tr>
+<td>UKIA LCA signature routing</td>
+<td>Legal/Procurement</td>
+<td>In progress</td>
+<td>Adobe Sign pending with Sarah Binder</td>
+<td>Execute and countersign</td>
+<td>Signature bottlenecks [10]</td>
+</tr>
+<tr>
+<td>NGL/Pinnacle re‑engagement nudges</td>
+<td>Incoming CSM</td>
+<td>In progress</td>
+<td>Ask for nudges received</td>
+<td>Send nudges and track lift</td>
+<td>Member response variability [12]</td>
+</tr>
+</tbody></table><h2>External Business Highlights (analyst/news)</h2>
+<ul>
+<li>Accenture Q4 FY25: Pipeline and contracts expanding; AI is driving large‑scale digital core transformations; security grew 16%; acquisitions (CyberCX, IAM Concepts) deepen AI‑powered security. So‑What: tie BetterUp AI/HTP messaging to Accenture’s AI‑at‑scale narrative and secure co‑sponsored case pilots. Next Step: align co‑story with Procurement/GLD by 12-06-2025. [13] </li>
+<li>LearnVantage positioning: Accenture prioritizes skilling/reskilling and GenAI fluency; FY26 goal 80K data/AI workforce. So‑What: anchor ELA to talent reinvention themes (skills + AI) to resonate with CHRO. Next Step: include LearnVantage tie‑in slide for 12/19 brief. [14] </li>
+</ul>
+<h2>Company Profile (fast facts)</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Industry</td>
+<td>Professional Services / IT Services &amp; Consulting</td>
+</tr>
+<tr>
+<td>Geographies</td>
+<td>120+ countries</td>
+</tr>
+<tr>
+<td>Headquarters</td>
+<td>Dublin, Ireland</td>
+</tr>
+<tr>
+<td>Year Founded</td>
+<td>1989</td>
+</tr>
+<tr>
+<td>Public/Private</td>
+<td>Public (NYSE: ACN)</td>
+</tr>
+<tr>
+<td>Revenue</td>
+<td>64,900,000,000 (FY2025)</td>
+</tr>
+<tr>
+<td>Employees</td>
+<td>799,000</td>
+</tr>
+<tr>
+<td>Fiscal Year</td>
+<td>Ends 08-31</td>
+</tr>
+<tr>
+<td>Sources: Accenture newsroom and public profile. [15]  [16]  [17]</td>
+<td></td>
+</tr>
+</tbody></table><h2>Procurement and Buying Dynamics</h2>
+<ul>
+<li>Procurement targets first‑week‑of‑December completion for the strategic contract, implying immediate paper‑process readiness; Impact: compresses legal/approval cycles; Action/Owner/Date: circulate min‑spend confirmation and final OFs (Incoming AE, 12-02-2025). [1] </li>
+<li>PR follows order‑form receipt for monthly enrollments; Impact: revenue timing hinges on OF speed; Action/Owner/Date: send updated OF and confirm PR (Incoming CSM, 11-21-2025). [2] </li>
+<li>InfoSec MDM remediation gate requested by buyer to finish earlier than 12/31; Impact: can stall launches and signatures; Action/Owner/Date: escalate to “done” by 12-15-2025 (Duke, 12-10-2025 for proof). [3]  [5] </li>
+</ul>
+<h2>Loss History and Lessons</h2>
+<ul>
+<li>Loss/No‑Go: &gt;$6M churn in H1 FY25; Root Cause: fragmented programs amid operating model shifts; Lesson: consolidate under outcomes‑driven ELA and reduce admin burden; Action to Prevent Repeat: execute ELA/HTP in early December and deploy Workday enablement (Incoming AE/CSM, 12-06-2025 and 11-26-2025). [1] </li>
+</ul>
+<h2>Critical Artifacts and Links</h2>
+<ul>
+<li>Accenture Transition – H2 2025 Strategy &amp; Update (Doc ID: e78eb22f-a046-486c-b3ca-82135903c918), Link unavailable, Internal strategy, risks, ELA details. [1] </li>
+<li>AI Engagement / Adoption Data (Doc ID: 2b83317f69e578136a423d26634815c26c2a5836980089ebc4ecd2b60e74), Link unavailable, Activation baseline (38%). [11] </li>
+<li>Human Engagement Adoption by Month (Doc ID: e3b9bafbdfda6344a0c3c045f5c4af59a4af49285a808d4f439195afeb9b), Link unavailable, Trend inputs for QBR.</li>
+<li>Landing Page Prototype (shared 11-12-2025), Link unavailable, Member comms/enablement artifact. [7] </li>
+</ul>
+<h2>Open Tasks and Handoffs</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Context</th>
+<th>Owner (New)</th>
+<th>Due Date</th>
+<th>Blockers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Send Nov OF and confirm PR</td>
+<td>Enrollment revenue</td>
+<td>Incoming CSM</td>
+<td>11-21-2025</td>
+<td>Buyer approvals</td>
+</tr>
+<tr>
+<td>Publish paper‑process checklist for ELA</td>
+<td>Early‑Dec close target</td>
+<td>Incoming AE</td>
+<td>11-25-2025</td>
+<td>Redline sequencing</td>
+</tr>
+<tr>
+<td>Confirm MDM completion (evidence)</td>
+<td>InfoSec gate</td>
+<td>Duke</td>
+<td>12-10-2025</td>
+<td>GRC timing</td>
+</tr>
+<tr>
+<td>Ship Workday one‑pager + QA plan</td>
+<td>Admin/scale</td>
+<td>Kristin</td>
+<td>11-26-2025</td>
+<td>Stakeholder sign‑off</td>
+</tr>
+<tr>
+<td>Build CHRO briefing (12/19)</td>
+<td>Exec coverage</td>
+<td>Alexi</td>
+<td>12-12-2025</td>
+<td>Inputs from GLD/Procurement</td>
+</tr>
+<tr>
+<td>Compile QBR outcomes packet</td>
+<td>ROI proof</td>
+<td>Incoming CSM</td>
+<td>12-12-2025</td>
+<td>Data collation</td>
+</tr>
+</tbody></table><p>Final check:</p>
+<ul>
+<li>Dates use MM-DD-YYYY.</li>
+<li>No nested lists.</li>
+<li>Tables complete.</li>
+<li>Unknowns labeled with actions to resolve.</li>
+</ul>
+<h2>Sources</h2>
+<h3>1. <a href="">Accenture Transition – H2 2025 Strategy &amp; Update.md</a> (Knowledge Document)</h3>
+<p><strong>Date:</strong> November 14, 2025 at 07:24 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>knowledge document content: CHRO: meeting [Alexi Robichaux](mailto:alexi@betterup.co)Dec 19, 2025being scheduled by [Ashleigh Munko](mailto:ashleigh@betterup.co)and [jami.black@accenture.com](mailto:jami.black@accenture.com)
+</code></pre>
+<h3>2. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000uTuhkMAC/view">[Gong In] Accenture's Monthly BetterUp Enrollment - November 2025</a> (Email)</h3>
+<p><strong>Date:</strong> November 07, 2025 at 12:49 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Livindra Bernard: PR will be submitted for approval once we receive the order form.
+</code></pre>
+<h3>3. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000snqXrMAI/view">[Gong In] Pending SSA Remediation - MDM Due 12/31</a> (Email)</h3>
+<p><strong>Date:</strong> October 28, 2025 at 04:26 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Livindra Bernard: While BetterUp has indicated that client-sensitive data is not handled directly on these devices, this control is still required to meet our InfoSec compliance standards.
+</code></pre>
+<h3>4. <a href="https://us-50450.app.gong.io/call?id=4181821198907274192">ACN &amp; BetterUp: Weekly Flagships Sync</a> (Call Transcript)</h3>
+<p><strong>Date:</strong> November 12, 2025 at 04:15 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Jojo Antonelli: One is AI coaching congratulations. We are officially live. How exciting. It&#x27;s a really big deal.
+</code></pre>
+<h3>5. <a href="https://us-50450.app.gong.io/call?id=45512352165860042">ACN &amp; BetterUp: Weekly Flagships Sync</a> (Call Transcript)</h3>
+<p><strong>Date:</strong> November 05, 2025 at 04:15 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Jojo Antonelli: Need to be, oh, I owe you that I owe you that. Let me, I&#x27;ll get that link sent to you today?
+</code></pre>
+<h3>6. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000vH6YFMA0/view">[Gong Out] Re: Accenture/MDLD licenses in PAD</a> (Email)</h3>
+<p><strong>Date:</strong> November 12, 2025 at 02:02 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Jojo Antonelli: 150 licenses should be visible in PAD as of this morning.
+</code></pre>
+<h3>7. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000vKglYMAS/view">[Gong Out] Re: BetterUp &amp; Accenture Landing Page</a> (Email)</h3>
+<p><strong>Date:</strong> November 12, 2025 at 05:53 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Jojo Antonelli: Please use this link to access the prototype landing page.
+</code></pre>
+<h3>8. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000vsIiMMAU/view">[Gong In] RE: [External] Re: Updated order form November Enrollment</a> (Email)</h3>
+<p><strong>Date:</strong> November 14, 2025 at 01:20 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Livindra Bernard: Checking if we’ll receive the order form today, or do you anticipate a delay and that we would receive it only on Monday instead. Please let us know. Thank you!
+</code></pre>
+<h3>9. <a href="https://us-50450.app.gong.io/call?id=2722729683959823194&amp;highlights=%5B%7B%22type%22%3A%20%22SHARE%22%2C%20%22from%22%3A%20795%7D%5D">ACN &amp; BetterUp: Weekly Flagships Sync</a> (Call Transcript)</h3>
+<p><strong>Date:</strong> September 10, 2025 at 03:15 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Jojo Antonelli: What&#x27;s good is when we ran through the audit with accenture specifically, we were able to account for 100 percent of licenses.
+</code></pre>
+<h3>10. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000t4vBLMAY/view">[Gong In] RE: [External] Re: Stamped UKIA LCA PDF - ready for execution</a> (Email)</h3>
+<p><strong>Date:</strong> October 30, 2025 at 07:02 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>dipak.kumar.sahoo@accenture.com: I initiated the signature request yesterday. It is currently pending with Sarah Binder for signing.
+</code></pre>
+<h3>11. <a href="https://docs.google.com/spreadsheets/d/1ov6qbnPE0eP3zsBSSkbV87MNuELbzwhDl-oJHtUAWHQ/edit?usp=drivesdk">Accenture | AI Engagement_Adoption Data.csv</a> (Knowledge Document)</h3>
+<p><strong>Date:</strong> November 02, 2025 at 12:02 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>knowledge document content: 38%
+</code></pre>
+<h3>12. <a href="https://betterup.lightning.force.com/lightning/r/Task/00TPd00000uH7uUMAS/view">[Gong In] RE: [External] Re: NGL Members - Stalled</a> (Email)</h3>
+<p><strong>Date:</strong> November 06, 2025 at 01:55 PM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Preethi Ram: Hi Jojo,
+
+Thank you for the diligence on this front. Can I request you to please send a nudge to the folks below drawing their attention to timelines and goodness of Betterup coaching? Thanks
+
+Regards,
+</code></pre>
+<h3>13. <a href="https://seekingalpha.com/symbol/ACN/earnings/transcripts">Accenture LLP (ACN) Q4 2025 Earnings Call Transcript</a> (Earnings Call)</h3>
+<p><strong>Date:</strong> September 25, 2025 at 12:00 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Julie Sweet: Today, we&#x27;ve worked across every major market with more than 9,000 clients, including the world&#x27;s largest companies, three quarters of the Fortune Global 100 and 500.
+</code></pre>
+<h3>14. <a href="https://seekingalpha.com/symbol/ACN/earnings/transcripts">Accenture LLP (ACN) Q2 2025 Earnings Call Transcript</a> (Earnings Call)</h3>
+<p><strong>Date:</strong> March 20, 2025 at 12:00 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>Julie Sweet: We increased our data and AI workforce to approximately 72,000, continuing progress against our goal of 80,000 by the end of FY 2026.
+</code></pre>
+<h3>15. <a href="https://newsroom.accenture.com/news/2025/accenture-reports-fourth-quarter-and-full-year-fiscal-2025-results">Accenture operates in more than 120 countries, with a global workforce of approximately 799,000 people as of 2025. Its fiscal year ends on August 31. The company is publicly traded (NYSE: ACN) and reported strong financial results for fiscal 2025,...</a> (Website)</h3>
+<p><strong>Date:</strong> September 25, 2025 at 12:00 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>&quot;Accenture (NYSE: ACN) reported financial results for the fourth quarter and full fiscal year ended August 31, 2025.&quot;
+</code></pre>
+<h3>16. <a href="https://en.wikipedia.org/wiki/Accenture">Accenture is a leading global professional services company specializing in information technology (IT) services and management consulting. It is headquartered in Dublin, Ireland, and was founded in 1989 in the United States. Accenture is a public...</a> (Website)</h3>
+<p><strong>Date:</strong> February 01, 2025 at 12:00 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>&quot;Accenture plc, doing business as Accenture, is a multinational professional services company headquartered in Dublin, Ireland, that specializes in information technology (IT) services and management consulting. It was founded in the United States in 1989. A Fortune Global 500 company, it reported revenues of $64.9 billion in 2024.&quot;
+</code></pre>
+<h3>17. <a href="https://newsroom.accenture.com/news/2025/accenture-technology-vision-2025-new-age-of-ai-to-bring-unprecedented-autonomy-to-business">Accenture's industry focus includes Strategy &amp; Consulting, Technology, Operations, Industry X, and Song. The company helps businesses, governments, and organizations build their digital core, optimize operations, and accelerate revenue growth. It...</a> (Website)</h3>
+<p><strong>Date:</strong> January 07, 2025 at 12:00 AM</p>
+<p><strong>Excerpt:</strong></p>
+<pre><code>&quot;Accenture is a leading global professional services company that helps the world’s leading businesses, governments and other organizations build their digital core, optimize their operations, accelerate revenue growth and enhance citizen services—creating tangible value at speed and scale. We are a talent- and innovation-led company with 799,000 people serving clients in more than 120 countries.&quot;
+</code></pre>
+
+</body>
+</html>

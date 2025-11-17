@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Apps - Bi-Weekly Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto 40px auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header .meta {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+            opacity: 0.95;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 48px;
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+        
+        .executive-summary {
+            background: #f7fafc;
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 32px;
+        }
+        
+        .executive-summary p {
+            color: #2d3748;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .owner-section {
+            font-size: 18px;
+            font-weight: 600;
+            color: #667eea;
+            margin: 32px 0 20px 0;
+        }
+        
+        .project-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        
+        .status-green {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .status-yellow {
+            background: #fef3c7;
+            color: #78350f;
+        }
+        
+        .status-blue {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+        
+        .status-red {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .project-description {
+            color: #4a5568;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .project-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        
+        .detail-value {
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        
+        .ktbr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .ktbr-item {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .ktbr-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .ktbr-description {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .next-sprint {
+            background: #fffbeb;
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .next-sprint ul {
+            list-style: none;
+            margin-top: 16px;
+        }
+        
+        .next-sprint li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: #78350f;
+        }
+        
+        .next-sprint li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #f59e0b;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Enterprise Apps Bi-Weekly Report (Mid-Sprint Update)</h1>
+            <div class="meta">
+                <span>📅 Sprint FY26-21: Nov 10 - Nov 21, 2025 (In Progress)</span>
+                <span>👤 Prepared by: Judist Crews</span>
+                <span>📬 Submitted to: Tope Iluyomade</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="executive-summary">
+                <h2 class="section-title">Executive Summary</h2>
+                <p>Sprint FY26-21 demonstrates strong momentum across strategic AI initiatives and revenue-enabling foundations with intensive Salesforce partnership collaboration. Judist Crews is driving critical revenue operations through FasTrak Renewal production deployment (expanding quote-to-cash acceleration to renewals under $250K), completing CIQ commission integration field mapping (enabling real-time commission visibility for sales team), advancing Legal Readiness Indicators to UAT phase (providing Thursday deal review visibility), developing four new standardized service products for billable services, and executing Legal field updates for Grow product transferability language. Austin Johnsey is leading transformational AI agent development through daily Salesforce Professional Services collaboration on BetterUp's first Agentforce implementation, managing active Rox EndGame pilot with strong field adoption and Value Prompter refinements, advancing Analytics API/MCP integration discovery with EndGame, and coordinating Slack-Salesforce integration rollout communications. Earl Wells completed foundational Account Type automation affecting 1,251 accounts (critical for FY26 territory assignment and forecasting accuracy) with comprehensive documentation published to Confluence, and initiated Labs support request form requirements gathering for People Insights team. Team operations maintained excellence through sustained daily Agentforce development sessions, cross-functional coordination meetings with Finance/CCG/Legal/CS, Rox pilot working group sessions, and high-volume help channel support resolving quote issues, account management, user access, and approval routing.</p>
+            </div>
+            
+            <!-- Major Projects Section -->
+            <div class="section">
+                <h2 class="section-title">Major Projects & Strategic Initiatives - By Owner</h2>
+                
+                <h3 class="owner-section">Judist Crews - 6 Projects</h3>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1212: FasTrak Renewal Production Deployment</h3>
+                        <span class="status-badge status-blue">In Development</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Revenue Impact:</strong> Deploying finalized FasTrak Renewal eligibility and scenario logic to production following successful QA validation in full sandbox. Solution expands FasTrak functionality to renewal opportunities under $250K with Lead products, accelerating quote-to-cash cycles and reducing DealDesk bottlenecks. Custom LWC (quoteRenewalFastTrack) provides real-time eligibility guidance and discount threshold visibility directly within renewal quote workflow. Coordinating with Ashley on field enablement materials and rollout timing to align with upcoming field offsite.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value">Deployment Preparation</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Highest</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1213: CIQ ↔ Salesforce Commission Integration Field Mapping</h3>
+                        <span class="status-badge status-green">Delivered</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Business Impact:</strong> Completed comprehensive field mapping documentation enabling automated commission calculations for sales team. Work included technical sync meeting with CCG partner team (Keith, Doug) and Finance leadership on Monday Nov 10, detailed multi-currency strategy consultation (USD, CAD, EUR, GBP), and comprehensive API name documentation supporting CCG integration implementation. Solution enables sales team to view preliminary commission calculations as deals close rather than waiting for month-end processing, reducing bottlenecks and improving transparency. Provided guidance on converted currency fields, recommended optimal field mapping strategy, and documented exchange rate reference tables.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value">Documentation Complete</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Next Phase</span>
+                            <span class="detail-value">CCG Integration Build</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1168: Legal Readiness Indicators on Opportunity</h3>
+                        <span class="status-badge status-yellow">UAT</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Deal Visibility:</strong> Advanced to UAT phase following sandbox POC completion. Solution surfaces account-level legal readiness details on Opportunity with read-only Red/Yellow/Green visual indicators including ESA/Service Agreement status, DPA status, AI addendum/opt-in, Security addendum, and AI governance/ethics review completion. Includes reportable formula fields and lightweight LWC component for Thursday deal review visibility. Conducted requirements review session with Rebecca (Legal) on Thursday Nov 13 to validate field mapping and demo POC implementation.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Environment</span>
+                            <span class="detail-value">UAT Phase</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1198: Four New Standardized Service Products (Non-Recurring)</h3>
+                        <span class="status-badge status-blue">In Development</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Revenue Enablement:</strong> Creating four new standardized service SKUs for deployment and ancillary service packages as non-recurring line items. Solution enables reps to sell billable services through standard quoting while maintaining accurate Finance reporting and recognition. Includes automated non-standard request case routing per Dana Glicksberg's stakeholder requirements, configured revenue categorization to non-recurring bucket (excluded from First-Year ACV), and validation of renewal logic to ensure services don't trigger renewal automation. Coordinating with Legal (Rebecca) on product descriptions and Deal Desk on pricing language, pending Finance (Jan) confirmation on ACV treatment.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Stakeholders</span>
+                            <span class="detail-value">Dana, Legal, Finance</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1184: UTM-to-Campaign Member Flow Evaluation</h3>
+                        <span class="status-badge status-blue">In Development</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Marketing Efficiency:</strong> Evaluating Salesforce Flow-based automation versus HubSpot Selective Sync for UTM data population on Campaign Members. Prototyping Flow solution in Full Sandbox to automatically detect UTM updates on Lead/Contact records and push to related Campaign Members, avoiding API limit risks of Selective Sync approach.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Environment</span>
+                            <span class="detail-value">Full Sandbox</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Legal Field Updates: Grow Product Transferability Language</h3>
+                        <span class="status-badge status-green">Delivered</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Legal Compliance:</strong> Updated standard transferability language for Grow (AI Coaching) and Manage products in Quote and Order Form templates per Rebecca Grunfeld's requirements. New language specifies: "Company may reassign licenses purchased under this Order (i) within thirty (30) days of the invitation date; or (ii) if a User is no longer employed by Company." Changes deployed to production and now auto-populate on new quotes and order forms, ensuring legal compliance and contract clarity.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Judist Crews</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value">Production Live</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Stakeholder</span>
+                            <span class="detail-value">Rebecca Grunfeld, Tara Johnson</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="owner-section">Austin Johnsey - 5 Projects</h3>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Agentforce + Data Cloud: AI Agent Development Partnership</h3>
+                        <span class="status-badge status-blue">Active Development</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Strategic AI Initiative:</strong> Leading BetterUp's first AI Agent implementation through partnership with Salesforce Professional Services. Conducting daily collaboration sessions with Salesforce Agentforce Success Engineers (ASE) in Full Sandbox environment to rapidly prototype emerging AI use cases. Weekly cadence includes Daily Connect sessions (Wed 11:30-11:45am), MCP Discussion working sessions (Wed 1:00-1:45pm), and End of Week Reconnects (Fri 11:30am-12pm) driving rapid iteration and expert guidance. Partnership provides access to Agentforce foundations, Data Cloud provisioning (1,020 GB), Einstein Requests (1,052,700 monthly allocation), and dedicated ASE support for proof of concept development and evaluation.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Austin Johnsey</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Cadence</span>
+                            <span class="detail-value">Daily SFDC PS Sessions</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Rox EndGame Pilot: Value Prompter & Account Research Enhancement</h3>
+                        <span class="status-badge status-yellow">Active Pilot</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Field Adoption:</strong> Managing active Rox EndGame pilot with strong user engagement and Value Prompter template refinements. Pilot demonstrates robust field adoption with reps actively using platform for account research, value proposition development, and executive outreach preparation. Conducted working group sessions Friday Nov 14 for Enterprise AEs (1:00-1:30pm) and Account Managers (2:30-3:00pm) providing platform guidance and use case exploration. Rox vendor (Brian Serrata) delivered Value Prompter template improvements with consistent formatting and BetterUp Value Selling methodology alignment, enabling reps to generate executive-ready value propositions leveraging internal transcripts, emails, and account artifacts.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Austin Johnsey</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value">Active User Engagement</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1195: Analytics API / MCP + EndGame Integration</h3>
+                        <span class="status-badge status-yellow">Discovery</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>AI Integration:</strong> Discovery phase for Analytics API integration with EndGame MCP server. Exploring automated AI-driven account intelligence workflows to surface data-driven insights directly in Salesforce. Related to broader EndGame MCP API POC (EAGTM-1178) evaluating API-based prompt template requests and response storage in Salesforce.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Austin Johnsey</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Type</span>
+                            <span class="detail-value">Discovery</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1180: Slack ↔ Salesforce Integration Rollout</h3>
+                        <span class="status-badge status-green">Complete - Communications Phase</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Collaboration Enhancement:</strong> Bi-directional integration bringing Slack channels into Salesforce Account pages and Salesforce records into Slack channels marked complete. Current phase focuses on field team communications rollout, simplified custom page layouts for Slack integration showing only critical fields, and coordination with CS leadership (Cyndi, Becca) on launch timing and change management. Discussed in cross-functional OneCS Data Systems meeting Nov 12, with action items for Austin to draft field communications and create simplified layouts for Account Page and Quick Actions in Slack.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Austin Johnsey</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Phase</span>
+                            <span class="detail-value">Enablement & Rollout</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1196: Gong Renewal Quote & Platform Evaluation</h3>
+                        <span class="status-badge status-yellow">Discovery</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Vendor Assessment:</strong> Discovery phase for Gong renewal evaluation and platform optimization assessment. Analyzing current Gong usage and considering provider alternatives with comprehensive pros/cons analysis for RevOps consideration.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Austin Johnsey</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Type</span>
+                            <span class="detail-value">Vendor Evaluation</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="owner-section">Earl Wells - 2 Projects</h3>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1185 & EAGTM-912: Account Type Automation Completion</h3>
+                        <span class="status-badge status-green">Delivered</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Data Quality Foundation:</strong> Completed implementation of updated Account Type automation rules affecting 1,251 accounts, critical for FY26 territory assignment and forecasting accuracy. Automation aligns system logic with business definitions approved by Joy Campbell, introducing Customer-Lapsed value for accounts with subscriptions expired within past 24 months, eliminating grace-period logic for immediate Former Customer transitions, and implementing Prospect-to-Customer automation on first Closed-Won opportunity. Earl published comprehensive Account Type definitions documentation to Confluence Enterprise Apps Team space, providing clear business process documentation and field automation logic reference for organization.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Earl Wells</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Impact</span>
+                            <span class="detail-value">1,251 Accounts</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-1214: Labs Support Request Form Enhancement</h3>
+                        <span class="status-badge status-red">Requirements Gathering</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>User Experience:</strong> Initiated requirements gathering for People Insights Labs support request form enhancements per Madison Romney's request. Proposed improvements include Account lookup from Salesforce, Total Account Bookings field, HTP Account indicator, Account Manager auto-population, Type of Request dropdown with embedded definitions, Business Imperative/People Hypothesis capture, Strategic Objective tracking, Audience Level/Size/Location fields, People Insights Consultant assignment, and completion status with feedback capture. Earl coordinating with Madison to refine requirements for implementation in future sprint.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Earl Wells</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value">Requirements Phase</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="owner-section">Tope Iluyomade - 1 Project</h3>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">EAGTM-682: Sales Team Headcount Tracking POC</h3>
+                        <span class="status-badge status-yellow">Discovery</span>
+                    </div>
+                    <div class="project-description">
+                        <strong>Headcount Analytics:</strong> Continued discovery on POC solution tracking employee headcount for Sales team in Salesforce with Looker snapshots. Solution includes User fields for Current Role Start/End Dates and Ramp Start/End Dates, plus custom Employee Leave object tracking leave periods. Design built in Full Sandbox pending RevOps validation for capacity planning and fractional headcount calculation.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Owner</span>
+                            <span class="detail-value">Tope Iluyomade</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Phase</span>
+                            <span class="detail-value">Pending RevOps Approval</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Priority</span>
+                            <span class="detail-value">High</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KTBR Section -->
+            <div class="section">
+                <h2 class="section-title">Keep the Business Running (KTBR)</h2>
+                <div class="ktbr-grid">
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Strategic Partnership Coordination</div>
+                        <div class="ktbr-description">Maintained daily collaboration cadence with Salesforce Professional Services for Agentforce development. Participated in technical sync meetings including BetterUp|CCG Salesforce Integration (Mon Nov 10), MCP Discussion sessions (Wed Nov 12), and End of Week Reconnects (Fri Nov 14) ensuring continuous progress on AI agent POC.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Cross-Functional Collaboration Sessions</div>
+                        <div class="ktbr-description">Led and participated in critical working sessions including Grow Customer Health Reporting (Wed Nov 12 9:30am), Rebecca/Judist Legal Readiness Work review (Thu Nov 13 10:30am), Judist/Paige ILR discussion (Thu Nov 13 12:30pm), MQL 48 Hour SLA requirements follow-up (Wed Nov 13), and OneCS Data Systems coordination meeting addressing Slack-SFDC integration, Ironclad storage strategy, and Cora automation Track ID reporting.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Quote & Validation Troubleshooting</div>
+                        <div class="ktbr-description">Resolved multiple quote calculation errors for Sandra Marciniak (Executive license addition issues) and Keely Williams (quote total calculation fixing to $240,500). Provided rapid troubleshooting ensuring deals progressed without delay.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Account Management & Consolidation</div>
+                        <div class="ktbr-description">Managed account ownership transitions including Adam Bysouth account reassignment from Tracy, consolidated duplicate Bain accounts for Charles Bond preserving opportunity history, and created new GAMI account for Charles Garrison's defense HR team deal. Coordinated with field leadership on account routing alignment.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Role Hierarchy & Approval Routing</div>
+                        <div class="ktbr-description">Updated Britta Wilhelmsen's RVP assignment to Eric Teasdale for Gov deal approval routing, ensuring all future Gov quotes route to correct approver. Resolved approval workflow blockers enabling Eric to move forward with pending deal.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">User Access & Provisioning</div>
+                        <div class="ktbr-description">Provisioned Salesforce access for Vanitha Rajpurohit via password setup email (Wed Nov 13). Re-activated Gong access for Catherine Makepeace ahead of partner calls following 90-day expiration. Configured ValueSelling license and permission set access for Rebecca Bruney enabling Value Prompter functionality for her team.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Field Visibility & Layout Updates</div>
+                        <div class="ktbr-description">Resolved Implementation Project Manager field visibility issue for Agathe Bonfante on ILR Case, ensuring IPM Sales view provides proper launch team assignment visibility. Created SFDC Report with Track IDs and Estimated Launch Dates for Cora automation support per Cyndi Reifer's request.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Deal Desk Support Segment Updates</div>
+                        <div class="ktbr-description">Updated support segment routing per BJ Szymanski's request: Dan Stanton's AM Emerging team quotes now route to Tara Johnson, while Ashish Silodia's NB EMEA and Angelika ElZahhar's AM Enterprise EMEA quotes route to BJ, streamlining approval workflows.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Opportunity & Contract Validation</div>
+                        <div class="ktbr-description">Validated multiple closed-won opportunities for immediate member invitation and license availability including Leonidas Kalai's requests. Provided guidance on pilot opportunity renewal behavior to Lisa Hanna clarifying auto-generation logic versus trial treatment.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">MQL Routing Process Consultation</div>
+                        <div class="ktbr-description">Provided strategic guidance to Elizabeth Kratzert on MQL incorrect routing automation proposal. Evaluated tradeoffs of automated "Incorrect Routing" status reason versus current Help channel triage process, recommending holistic workflow design before implementing automation to preserve critical context and communication during routing issue resolution.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">FasTrak Certification & User Enablement</div>
+                        <div class="ktbr-description">Clarified FasTrak eligibility and auto-approval thresholds for Louisa Fitzherbert during Joy Campbell QBR. Explained first 3 FasTrak quotes route to DealDesk for approval, with auto-approval enabled after 5th quote, ensuring proper expectations for upcoming LEGO contracting.</div>
+                    </div>
+                    <div class="ktbr-item">
+                        <div class="ktbr-title">Rox Pilot Support & Documentation</div>
+                        <div class="ktbr-description">Provided Rox Working Group session notes and transcript to vendor partner Brian Serrata supporting ongoing pilot refinements and Value Prompter template improvements. Facilitated Friday Nov 14 working group sessions for Enterprise AEs and Account Managers.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metrics Section -->
+            <div class="section">
+                <h2 class="section-title">Sprint Metrics (Nov 10-14)</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">14</div>
+                        <div class="metric-label">Active Strategic Initiatives</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Initiatives Delivered/Advanced</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">20+</div>
+                        <div class="metric-label">Help Channel Issues Resolved</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">9</div>
+                        <div class="metric-label">Strategic Meetings Conducted</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Looking Ahead Section -->
+            <div class="section">
+                <h2 class="section-title">Sprint FY26-21 Remaining Focus Areas</h2>
+                <div class="next-sprint">
+                    <ul>
+                        <li>Complete FasTrak Renewal production deployment and coordinate field enablement rollout with Ashley aligned to field offsite</li>
+                        <li>Continue daily Agentforce + Data Cloud development sessions with Salesforce Professional Services advancing AI agent POC</li>
+                        <li>Progress Legal Readiness Indicators through UAT phase and prepare for production deployment</li>
+                        <li>Finalize four new standardized service products configuration pending Finance confirmation on ACV treatment</li>
+                        <li>Continue UTM-to-Campaign Member Flow POC development in Full Sandbox</li>
+                        <li>Complete Earl's Labs support request form requirements gathering and create implementation ticket for future sprint</li>
+                        <li>Monitor Rox EndGame pilot adoption and provide ongoing support through working group sessions</li>
+                        <li>Support CCG team integration implementation of CIQ commission sync using provided field mappings</li>
+                        <li>Finalize Slack-Salesforce integration field communications and simplified layout rollout with CS leadership</li>
+                        <li>Continue KTBR excellence: help channel responsiveness, user access provisioning, deal support, and cross-functional coordination through sprint close</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
